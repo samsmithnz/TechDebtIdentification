@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TechDebtIdentification.Core;
 using TechDebtIdentification.Core.Statistics;
 
@@ -14,23 +16,32 @@ namespace TechDebtIdentification.Tests
 
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            string repoToScan = @"C:\Users\samsmit\source\repos";
+            string repoToScan = @"C:\Users\samsmit\source";
 
             //Act
-            List<ProjectSummary> results = repoScanner.ProcessRepo(repoToScan);
+            Tuple<List<Project>, List<FrameworkSummary>> results = repoScanner.ScanRepo(repoToScan);
 
             //Asset
-            Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results.Item1.Count > 0);
+            Assert.IsTrue(results.Item2.Count > 0);
+            foreach (Project item in results.Item1)
+            {
+                if (string.IsNullOrEmpty(item.Framework) == true)
+                {
+                    Debug.WriteLine(item.ToString());
+                }
+            }
 
-        }     
-        
+
+        }
+
         [TestMethod]
         public void ProcessFolderTest()
         {
 
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            string folderToScan = @"C:\Users\samsmit\source\repos\TechDebtIdentification";
+            string folderToScan = @"C:\Users\samsmit\source";
 
             //Act
             List<Project> results = repoScanner.SearchFolderForProjectFiles(folderToScan);
@@ -65,7 +76,7 @@ namespace TechDebtIdentification.Tests
             };
 
             //Act
-            List<ProjectSummary> results = repoScanner.AggregateFrameworks(projects);
+            List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects);
 
             //Asset
             Assert.IsTrue(results.Count > 0);

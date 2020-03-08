@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TechDebtIdentification.Core.Statistics
 {
-    public class ProjectSummary
+    public class LanguageSummary
     {
-        public string Framework { get; set; }
+        public string Language { get; set; }
         public int Count { get; set; }
     }
 }

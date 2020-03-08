@@ -13,21 +13,21 @@ namespace TechDebtIdentification.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
             RepoScanner repo = new RepoScanner();
-            List<ProjectSummary> projectSummaries = repo.ProcessRepo(@"C:\Users\samsmit\source\repos");
+            Tuple<List<Project>,List<FrameworkSummary>> projectSummaries = repo.ScanRepo(@"C:\Users\samsmit\source");
 
             List<string> labels = new List<string>();
             List<string> data = new List<string>();
-            foreach (ProjectSummary item in projectSummaries)
+            foreach (FrameworkSummary item in projectSummaries.Item2)
             {
                 labels.Add(item.Framework);
                 data.Add(item.Count.ToString());
