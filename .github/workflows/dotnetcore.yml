@@ -20,21 +20,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-      
+        dotnet-version: 3.1.101      
     #Build and test service   
     - name: Run automated unit and integration tests
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
-
     #Publish dotnet objects
     - name: DotNET Publish Web Service
       run: dotnet publish TechDebtIdentification/TechDebtIdentification.Web/TechDebtIdentification.Web.csproj --configuration ${{ env.dotNetConfiguration }}
-
     #Publish build artifacts to GitHub
     - name: Upload website build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
         name: webapp
-        path: FeatureFlags/FeatureFlags.Web/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
+        path: TechDebtIdentification/TechDebtIdentification.Web/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
