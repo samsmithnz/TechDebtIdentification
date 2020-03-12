@@ -10,16 +10,27 @@ namespace TechDebtIdentification.Core
 {
     public class RepoScanner
     {
-        public Tuple<List<Project>, List<FrameworkSummary>> ScanRepo(string rootFolder)
+        public ScanSummary ScanRepo(string rootFolder)
         {
+            //scan all projects
             List<Project> projects = new List<Project>();
             foreach (DirectoryInfo folder in new DirectoryInfo(rootFolder).GetDirectories())
             {
                 projects.AddRange(SearchFolderForProjectFiles(folder.FullName));
             }
+            //Aggregate results
+            int projectCount = projects.Count;
+            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects);
+            List<LanguageSummary> languageSummary = AggregateLanguages(projects);
 
-            List<FrameworkSummary> projectSummary = AggregateFrameworks(projects);
-            return new Tuple<List<Project>, List<FrameworkSummary>>(projects, projectSummary);
+            //Setup the scan summary
+            ScanSummary scanSummary = new ScanSummary
+            {
+                ProjectCount = projectCount,
+                FrameworkSummary = frameworkSummary,
+                LanguageSummary = languageSummary
+            };
+            return (scanSummary);
         }
 
         public List<FrameworkSummary> AggregateFrameworks(List<Project> projects)
@@ -28,15 +39,15 @@ namespace TechDebtIdentification.Core
             foreach (Project project in projects)
             {
                 //Search for the projectsummary entry for this framework
-                FrameworkSummary currentSummary = projectSummary.Find(i => i.Framework == project.Framework + ":" + project.Language);
+                FrameworkSummary currentSummary = projectSummary.Find(i => i.Framework == project.Framework);
 
                 //If there is no project summary entry, create one
                 if (currentSummary == null)
                 {
                     projectSummary.Add(new FrameworkSummary
                     {
-                        Framework = project.Framework + ":" + project.Language,
-                        Count = 1
+                        Framework = project.Framework,
+                        Count = 1 //it's the first time, start with a count of 1
                     });
                 }
                 else
@@ -46,6 +57,33 @@ namespace TechDebtIdentification.Core
                 }
             }
             List<FrameworkSummary> sortedProjectSummary = projectSummary.OrderBy(o => o.Framework).ToList();
+            return sortedProjectSummary;
+        }
+        
+        public List<LanguageSummary> AggregateLanguages(List<Project> projects)
+        {
+            List<LanguageSummary> projectSummary = new List<LanguageSummary>();
+            foreach (Project project in projects)
+            {
+                //Search for the projectsummary entry for this framework
+                LanguageSummary currentSummary = projectSummary.Find(i => i.Language == project.Language);
+
+                //If there is no project summary entry, create one
+                if (currentSummary == null)
+                {
+                    projectSummary.Add(new LanguageSummary
+                    {
+                        Language = project.Language,
+                        Count = 1
+                    });
+                }
+                else
+                {
+                    //There is an existing entry, increment the count
+                    currentSummary.Count++;
+                }
+            }
+            List<LanguageSummary> sortedProjectSummary = projectSummary.OrderBy(o => o.Language).ToList();
             return sortedProjectSummary;
         }
 

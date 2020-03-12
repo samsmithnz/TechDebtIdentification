@@ -22,12 +22,13 @@ namespace TechDebtIdentification.Web.Controllers
 
         public IActionResult Index()
         {
+            string repoLocation = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\source";
             RepoScanner repo = new RepoScanner();
-            Tuple<List<Project>,List<FrameworkSummary>> projectSummaries = repo.ScanRepo(@"C:\Users\samsmit\source");
+            ScanSummary scanSummary = repo.ScanRepo(repoLocation);
 
             List<string> labels = new List<string>();
             List<string> data = new List<string>();
-            foreach (FrameworkSummary item in projectSummaries.Item2)
+            foreach (FrameworkSummary item in scanSummary.FrameworkSummary)
             {
                 labels.Add(item.Framework);
                 data.Add(item.Count.ToString());

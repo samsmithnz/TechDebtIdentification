@@ -9,6 +9,7 @@ namespace TechDebtIdentification.Core.Statistics
         public int ProjectCount { get; set; }
         public int FrameworkCount { get; set; }
         public List<FrameworkSummary> FrameworkSummary { get; set; }
+        public int LanguageCount { get; set; }
         public List<LanguageSummary> LanguageSummary { get; set; }
     }
 }
