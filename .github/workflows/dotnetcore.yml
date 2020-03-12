@@ -22,8 +22,8 @@ jobs:
       with:
         dotnet-version: 3.1.101      
     #Build and test service   
-    - name: Run automated unit and integration tests
-      run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
+    #- name: Run automated unit and integration tests
+    #  run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish dotnet objects
     - name: DotNET Publish Web Service
       run: dotnet publish TechDebtIdentification/TechDebtIdentification.Web/TechDebtIdentification.Web.csproj --configuration ${{ env.dotNetConfiguration }}
