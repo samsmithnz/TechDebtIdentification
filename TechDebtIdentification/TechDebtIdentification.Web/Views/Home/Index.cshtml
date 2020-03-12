@@ -1,25 +1,39 @@
-﻿@model Tuple<List<string>, List<string>>
+﻿@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
-    <table>
+Number of projects scanned: @Model.ProjectCount
+<table>
+    <tr>
+        <th>Language</th>
+        <th>Count</th>
+    </tr>
+    @for (int i = 0; i <= Model.LanguageSummary.Count - 1; i++)
+    {
         <tr>
-            <th>Framework</th>
-            <th>Count</th>
+            <td>@Model.LanguageSummary[i].Language</td>
+            <td>@Model.LanguageSummary[i].Count</td>
         </tr>
-        @for (int i = 0; i < Model.Item1.Count - 1; i++)
-        {
-            <tr>
-                <td>@Model.Item1[i]</td>
-                <td>@Model.Item2[i]</td>
-            </tr>
-        }
-    </table>
+    }
+</table>
+<table>
+    <tr>
+        <th>Framework</th>
+        <th>Count</th>
+    </tr>
+    @for (int i = 0; i <= Model.FrameworkSummary.Count - 1; i++)
+    {
+        <tr>
+            <td>@Model.FrameworkSummary[i].Framework</td>
+            <td>@Model.FrameworkSummary[i].Count</td>
+        </tr>
+    }
+</table>
 
 <script>
-    var myModelLabels = @Json.Serialize(Model.Item1);
-    var myModelData = @Json.Serialize(Model.Item2);
+    var myModelLabels = @Json.Serialize(Model.GraphLabels);
+    var myModelData = @Json.Serialize(Model.GraphData);
 </script>
 
 <script src="~/lib/Chart.js/Chart.js"></script>

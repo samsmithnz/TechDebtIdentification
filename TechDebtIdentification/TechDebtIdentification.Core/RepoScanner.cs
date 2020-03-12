@@ -35,16 +35,21 @@ namespace TechDebtIdentification.Core
 
         public List<FrameworkSummary> AggregateFrameworks(List<Project> projects)
         {
-            List<FrameworkSummary> projectSummary = new List<FrameworkSummary>();
+            List<FrameworkSummary> frameworkSummary = new List<FrameworkSummary>();
             foreach (Project project in projects)
             {
-                //Search for the projectsummary entry for this framework
-                FrameworkSummary currentSummary = projectSummary.Find(i => i.Framework == project.Framework);
-
-                //If there is no project summary entry, create one
-                if (currentSummary == null)
+                if (project.Framework == null)
                 {
-                    projectSummary.Add(new FrameworkSummary
+                    project.Framework = "(Unknown framework)";
+                }
+
+                //Process each indvidual framework
+                FrameworkSummary framework = frameworkSummary.Find(i => i.Framework == project.Framework);
+
+                //If this framework isn't in the current list, create a new one
+                if (framework == null)
+                {
+                    frameworkSummary.Add(new FrameworkSummary
                     {
                         Framework = project.Framework,
                         Count = 1 //it's the first time, start with a count of 1
@@ -53,38 +58,43 @@ namespace TechDebtIdentification.Core
                 else
                 {
                     //There is an existing entry, increment the count
-                    currentSummary.Count++;
+                    framework.Count++;
                 }
             }
-            List<FrameworkSummary> sortedProjectSummary = projectSummary.OrderBy(o => o.Framework).ToList();
-            return sortedProjectSummary;
+            List<FrameworkSummary> sortedFrameworks = frameworkSummary.OrderBy(o => o.Framework).ToList();
+            return sortedFrameworks;
         }
-        
+
         public List<LanguageSummary> AggregateLanguages(List<Project> projects)
         {
-            List<LanguageSummary> projectSummary = new List<LanguageSummary>();
+            List<LanguageSummary> languageSummary = new List<LanguageSummary>();
             foreach (Project project in projects)
             {
-                //Search for the projectsummary entry for this framework
-                LanguageSummary currentSummary = projectSummary.Find(i => i.Language == project.Language);
-
-                //If there is no project summary entry, create one
-                if (currentSummary == null)
+                if (project.Language == null)
                 {
-                    projectSummary.Add(new LanguageSummary
+                    project.Language = "(Unknown language)";
+                }
+
+                //Process each indvidual language
+                LanguageSummary language = languageSummary.Find(i => i.Language == project.Language);
+
+                //If this language isn't in the current list, create a new one
+                if (language == null)
+                {
+                    languageSummary.Add(new LanguageSummary
                     {
                         Language = project.Language,
-                        Count = 1
+                        Count = 1 //it's the first time, start with a count of 1
                     });
                 }
                 else
                 {
                     //There is an existing entry, increment the count
-                    currentSummary.Count++;
+                    language.Count++;
                 }
             }
-            List<LanguageSummary> sortedProjectSummary = projectSummary.OrderBy(o => o.Language).ToList();
-            return sortedProjectSummary;
+            List<LanguageSummary> sortedLanguages = languageSummary.OrderBy(o => o.Language).ToList();
+            return sortedLanguages;
         }
 
         public List<Project> SearchFolderForProjectFiles(string folder)

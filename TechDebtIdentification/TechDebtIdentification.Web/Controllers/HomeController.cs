@@ -26,6 +26,7 @@ namespace TechDebtIdentification.Web.Controllers
             RepoScanner repo = new RepoScanner();
             ScanSummary scanSummary = repo.ScanRepo(repoLocation);
 
+            //Setup data for the chart
             List<string> labels = new List<string>();
             List<string> data = new List<string>();
             foreach (FrameworkSummary item in scanSummary.FrameworkSummary)
@@ -34,9 +35,19 @@ namespace TechDebtIdentification.Web.Controllers
                 data.Add(item.Count.ToString());
             }
 
-            Tuple<List<string>, List<string>> chartData = new Tuple<List<string>, List<string>>(labels, data);
+            //populate the viewmodel with data to use on the index page
+            IndexViewModel indexModel = new IndexViewModel
+            {
+                GraphLabels = labels,
+                GraphData = data,
+                FrameworkCount = scanSummary.FrameworkCount,
+                FrameworkSummary = scanSummary.FrameworkSummary,
+                LanguageCount = scanSummary.LanguageCount,
+                LanguageSummary = scanSummary.LanguageSummary,
+                ProjectCount = scanSummary.ProjectCount
+            };
 
-            return View(chartData);
+            return View(indexModel);
         }
 
         public IActionResult Privacy()

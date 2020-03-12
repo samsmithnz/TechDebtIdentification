@@ -3,15 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TechDebtIdentification.Core.Statistics;
 
 namespace TechDebtIdentification.Web.Models
 {
-    public class ProjectFrameworkViewModel
+    public class IndexViewModel : ScanSummary
     {
-        [JsonProperty(PropertyName = "Framework")]
-        public List<string> Framework { get; set; }
+        public List<string> GraphLabels { get; set; }
 
-        [JsonProperty(PropertyName = "Count")]
-        public List<int> Count { get; set; }
+        public List<string> GraphData { get; set; }
     }
 }
