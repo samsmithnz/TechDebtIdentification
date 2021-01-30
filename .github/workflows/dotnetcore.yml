@@ -2,9 +2,9 @@ name: "Technical Debt ID CI/CD"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      dotNetVersion: netcoreapp3.1
+      dotNetVersion: net5
       dotNetConfiguration: Release
 
     steps:
@@ -20,16 +20,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101      
+        dotnet-version: 5.0.100      
     #Build and test service   
     - name: Run automated unit and integration tests
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish dotnet objects
-    - name: DotNET Publish Web Service
-      run: dotnet publish TechDebtIdentification/TechDebtIdentification.Web/TechDebtIdentification.Web.csproj --configuration ${{ env.dotNetConfiguration }}
+    - name: DotNET build console app
+      run: dotnet build TechDebtIdentification/TechDebtIdentification.App/TechDebtIdentification.App.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish build artifacts to GitHub
     - name: Upload website build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
-        name: webapp
-        path: TechDebtIdentification/TechDebtIdentification.Web/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
+        name: app
+        path: TechDebtIdentification/TechDebtIdentification.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
