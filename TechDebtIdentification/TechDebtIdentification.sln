@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDebtIdentification.Core", "TechDebtIdentification.Core\TechDebtIdentification.Core.csproj", "{0164CC29-44E7-48DC-A332-4D8C5C3A031E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Core", "TechDebtIdentification.Core\TechDebtIdentification.Core.csproj", "{0164CC29-44E7-48DC-A332-4D8C5C3A031E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDebtIdentification.Tests", "TechDebtIdentification.Tests\TechDebtIdentification.Tests.csproj", "{1DE080D3-43AB-4600-BF62-024A9FE808A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Tests", "TechDebtIdentification.Tests\TechDebtIdentification.Tests.csproj", "{1DE080D3-43AB-4600-BF62-024A9FE808A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDebtIdentification.Web", "TechDebtIdentification.Web\TechDebtIdentification.Web.csproj", "{BF43EBEF-7536-4027-B346-BD3C6FD39156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Web", "TechDebtIdentification.Web\TechDebtIdentification.Web.csproj", "{BF43EBEF-7536-4027-B346-BD3C6FD39156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechID.App", "TechID.App\TechID.App.csproj", "{052B56AE-B816-4F29-A413-86FDB703BB6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
