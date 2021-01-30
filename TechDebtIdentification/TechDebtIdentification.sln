@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Tests", "TechDebtIdentification.Tests\TechDebtIdentification.Tests.csproj", "{1DE080D3-43AB-4600-BF62-024A9FE808A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Web", "TechDebtIdentification.Web\TechDebtIdentification.Web.csproj", "{BF43EBEF-7536-4027-B346-BD3C6FD39156}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechID.App", "TechID.App\TechID.App.csproj", "{052B56AE-B816-4F29-A413-86FDB703BB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechID.App", "TechID.App\TechID.App.csproj", "{052B56AE-B816-4F29-A413-86FDB703BB6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{1DE080D3-43AB-4600-BF62-024A9FE808A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE080D3-43AB-4600-BF62-024A9FE808A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE080D3-43AB-4600-BF62-024A9FE808A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF43EBEF-7536-4027-B346-BD3C6FD39156}.Release|Any CPU.Build.0 = Release|Any CPU
 		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{052B56AE-B816-4F29-A413-86FDB703BB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
