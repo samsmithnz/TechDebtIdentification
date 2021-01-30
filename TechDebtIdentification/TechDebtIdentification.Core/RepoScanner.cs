@@ -4,12 +4,47 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using TechDebtIdentification.Core.Statistics;
 
 namespace TechDebtIdentification.Core
 {
     public class RepoScanner
     {
+        public async Task<ScanSummary> Get(string rootFolder, IProgress<int> progress, CancellationToken cancellationToken = new CancellationToken())
+        {
+            int projectCount = 0;
+            await Task.Delay(1000, cancellationToken);
+
+            //scan all projects
+            List<Project> projects = new List<Project>();
+            foreach (DirectoryInfo folder in new DirectoryInfo(rootFolder).GetDirectories())
+            {
+                projects.AddRange(SearchFolderForProjectFiles(folder.FullName));
+                if (projectCount != projects.Count)
+                {
+                    projectCount = projects.Count;
+                    progress?.Report(projectCount);
+                }
+            }
+
+            //Aggregate results
+            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects);
+            List<LanguageSummary> languageSummary = AggregateLanguages(projects);
+
+            //Setup the scan summary
+            ScanSummary scanSummary = new ScanSummary
+            {
+                ReposCount = new DirectoryInfo(rootFolder).GetDirectories().Length,
+                ProjectCount = projectCount,
+                FrameworkSummary = frameworkSummary,
+                LanguageSummary = languageSummary
+            };
+            return (scanSummary);
+
+        }
+
         public ScanSummary ScanRepo(string rootFolder)
         {
             //scan all projects
@@ -109,7 +144,10 @@ namespace TechDebtIdentification.Core
                         projects.AddRange(ProcessDotNetProjectFile(fileInfo.FullName, "csharp"));
                         break;
                     case ".vbproj":
-                        projects.AddRange(ProcessDotNetProjectFile(fileInfo.FullName, "vbdotnet"));
+                        projects.AddRange(ProcessDotNetProjectFile(fileInfo.FullName, "vb.net"));
+                        break;
+                    case ".vbp":
+                        projects.Add(new Project { Path = fileInfo.FullName, Language = "vb6" });
                         break;
                 }
             }

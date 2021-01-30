@@ -9,6 +9,7 @@ namespace TechDebtIdentification.Core.Statistics
         private List<FrameworkSummary> _frameworkSummary;
         private List<LanguageSummary> _languageSummary;
 
+        public int ReposCount { get; set; }
         public int ProjectCount { get; set; }
         public int FrameworkCount { get; set; }
         public List<FrameworkSummary> FrameworkSummary
