@@ -26,10 +26,10 @@ jobs:
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish dotnet objects
     - name: DotNET build console app
-      run: dotnet build TechDebtIdentification/TechDebtIdentification.App/TechDebtIdentification.App.csproj --configuration ${{ env.dotNetConfiguration }}
+      run: dotnet build TechDebtIdentification/TechID.App/TechID.App.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish build artifacts to GitHub
     - name: Upload website build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
         name: app
-        path: TechDebtIdentification/TechDebtIdentification.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
+        path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
