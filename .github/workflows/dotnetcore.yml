@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     env:
       dotNetVersion: net5
@@ -25,8 +25,8 @@ jobs:
     - name: Run automated unit and integration tests
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish dotnet objects
-    - name: DotNET build console app
-      run: dotnet build TechDebtIdentification/TechID.App/TechID.App.csproj --configuration ${{ env.dotNetConfiguration }}
+    - name: publish console app
+      run: dotnet publish TechDebtIdentification/TechID.App/TechID.csproj --configuration ${{ env.dotNetConfiguration }}
     #Publish build artifacts to GitHub
     - name: Upload website build artifacts back to GitHub
       uses: actions/upload-artifact@master
