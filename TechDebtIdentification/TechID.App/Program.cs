@@ -13,8 +13,9 @@ namespace TechID
 {
     class Program
     {
-        private static bool _folderArgumentSet;
+        private static string _folder;
         private static bool _includeTotals;
+        private static string _outputFile;
 
         static async Task Main(string[] args)
         {
@@ -24,21 +25,19 @@ namespace TechID
                    .WithNotParsed(HandleParseError);
 
             //Run the task
-            if (_folderArgumentSet == true)
+            if (string.IsNullOrEmpty(_folder) == false)
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                string rootFolder = GetFolderFromArguments(args);
                 RepoScanner repo = new RepoScanner();
-                CancellationTokenSource tokenSource;
                 IProgress<int> progress = new Progress<int>(ReportProgress);
+                CancellationTokenSource tokenSource = new CancellationTokenSource();
                 ScanSummary scanSummary = null;
-                tokenSource = new CancellationTokenSource();
-
+               
                 //do the work
                 try
                 {
-                    scanSummary = await repo.ScanRepo(progress, tokenSource.Token, rootFolder, _includeTotals);
+                    scanSummary = await repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
                 }
                 catch (OperationCanceledException ex)
                 {
@@ -71,7 +70,7 @@ namespace TechID
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
                 }
-                Console.ReadKey();
+
             }
         }
 
@@ -90,8 +89,9 @@ namespace TechID
         static void RunOptions(Options opts)
         {
             //handle options
-            _folderArgumentSet = opts.Folder;
+            _folder = opts.Folder;
             _includeTotals = opts.IncludeTotals;
+            _outputFile = opts.OutputFile;
         }
         static void HandleParseError(IEnumerable<Error> errs)
         {

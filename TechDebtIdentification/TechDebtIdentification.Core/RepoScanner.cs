@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TechDebtIdentification.Core.Statistics;
@@ -12,8 +13,8 @@ namespace TechDebtIdentification.Core
 {
     public class RepoScanner
     {
-        public async Task<ScanSummary> ScanRepo(IProgress<int> progress, CancellationToken cancellationToken, 
-            string rootFolder, bool includeTotal = true)
+        public async Task<ScanSummary> ScanRepo(IProgress<int> progress, CancellationToken cancellationToken,
+            string rootFolder, bool includeTotal = true, string outputFile = null)
         {
             int projectCount = 0;
             await Task.Delay(1000, cancellationToken);
@@ -34,6 +35,12 @@ namespace TechDebtIdentification.Core
             List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects, includeTotal);
             List<LanguageSummary> languageSummary = AggregateLanguages(projects, includeTotal);
 
+            //Create an output CSV file
+            if (string.IsNullOrEmpty(outputFile) == false)
+            {
+                OutputDataToCSVFile(projects, outputFile);
+            }
+
             //Setup the scan summary
             ScanSummary scanSummary = new ScanSummary
             {
@@ -46,28 +53,29 @@ namespace TechDebtIdentification.Core
 
         }
 
-        public ScanSummary ScanRepo(string rootFolder, bool includeTotal)
-        {
-            //scan all projects
-            List<Project> projects = new List<Project>();
-            foreach (DirectoryInfo folder in new DirectoryInfo(rootFolder).GetDirectories())
-            {
-                projects.AddRange(SearchFolderForProjectFiles(folder.FullName));
-            }
-            //Aggregate results
-            int projectCount = projects.Count;
-            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects, includeTotal);
-            List<LanguageSummary> languageSummary = AggregateLanguages(projects, includeTotal);
+        //public ScanSummary ScanRepo(string rootFolder, bool includeTotal)
+        //{
+        //    //scan all projects
+        //    List<Project> projects = new List<Project>();
+        //    foreach (DirectoryInfo folder in new DirectoryInfo(rootFolder).GetDirectories())
+        //    {
+        //        projects.AddRange(SearchFolderForProjectFiles(folder.FullName));
+        //    }
 
-            //Setup the scan summary
-            ScanSummary scanSummary = new ScanSummary
-            {
-                ProjectCount = projectCount,
-                FrameworkSummary = frameworkSummary,
-                LanguageSummary = languageSummary
-            };
-            return (scanSummary);
-        }
+        //    //Aggregate results
+        //    int projectCount = projects.Count;
+        //    List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects, includeTotal);
+        //    List<LanguageSummary> languageSummary = AggregateLanguages(projects, includeTotal);
+
+        //    //Setup the scan summary
+        //    ScanSummary scanSummary = new ScanSummary
+        //    {
+        //        ProjectCount = projectCount,
+        //        FrameworkSummary = frameworkSummary,
+        //        LanguageSummary = languageSummary
+        //    };
+        //    return (scanSummary);
+        //}
 
         public List<FrameworkSummary> AggregateFrameworks(List<Project> projects, bool includeTotal)
         {
@@ -176,6 +184,25 @@ namespace TechDebtIdentification.Core
             {
                 Debug.WriteLine(item.Framework + ": " + item.Language + ": " + item.Path);
             }
+        }
+
+        public void OutputDataToCSVFile(List<Project> projects, string filePath)
+        {
+            //before your loop
+            StringBuilder csv = new StringBuilder();
+            //Add header
+            string headerLine = string.Format("{0},{1},{2}", "project file location", "framework", "language");
+            csv.AppendLine(headerLine);
+            //Add the rows
+            foreach (Project item in projects)
+            {
+                string path = item.Path;
+                string framework = item.Framework;
+                string language = item.Language;
+                string newLine = string.Format("{0},{1},{2}", path, framework, language);
+                csv.AppendLine(newLine);
+            }
+            File.WriteAllText(filePath, csv.ToString());
         }
 
         //Process .NET Framework and Core project files

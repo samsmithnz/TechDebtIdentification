@@ -23,11 +23,11 @@ namespace TechDebtIdentification.Tests
             List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects, includeTotal);
 
             //Asset
-            Assert.IsTrue(results.Count == 4);
-            Assert.IsTrue(results.Find(i => i.Framework == "framework1").Count == 2);
-            Assert.IsTrue(results.Find(i => i.Framework == "framework2").Count == 1);
-            Assert.IsTrue(results.Find(i => i.Framework == "framework3").Count == 1);
-            Assert.IsTrue(results[^1].Count == 4);
+            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual(2, results.Find(i => i.Framework == "framework1").Count);
+            Assert.AreEqual(1, results.Find(i => i.Framework == "framework2").Count);
+            Assert.AreEqual(2, results.Find(i => i.Framework == "framework3").Count);
+            Assert.AreEqual(6, results[^1].Count);
         }
 
         [TestMethod]
@@ -42,10 +42,10 @@ namespace TechDebtIdentification.Tests
             List<LanguageSummary> results = repoScanner.AggregateLanguages(projects, includeTotal);
 
             //Asset
-            Assert.IsTrue(results.Count > 0);
-            Assert.IsTrue(results.Find(i => i.Language == "csharp").Count == 3);
-            Assert.IsTrue(results.Find(i => i.Language == "vbdotnet").Count == 1);
-            Assert.IsTrue(results[^1].Count == 4);
+            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual(3, results.Find(i => i.Language == "csharp").Count);
+            Assert.AreEqual(1, results.Find(i => i.Language == "vbdotnet").Count);
+            Assert.AreEqual(6, results[^1].Count);
         }
 
         private static List<Project> GenerateSampleData()
@@ -55,22 +55,38 @@ namespace TechDebtIdentification.Tests
                 new Project
                 {
                     Framework = "framework1",
-                    Language = "csharp"
+                    Language = "csharp",
+                    Path = @"c:\Project1"
                 },
                 new Project
                 {
                     Framework = "framework1",
-                    Language = "csharp"
+                    Language = "csharp",
+                    Path = @"c:\Project2"
                 },
                 new Project
                 {
                     Framework = "framework2",
-                    Language = "csharp"
+                    Language = "csharp",
+                    Path = @"c:\Project3"
                 },
                 new Project
                 {
                     Framework = "framework3",
-                    Language = "vbdotnet"
+                    Language = "vbdotnet",
+                    Path = @"c:\Project4"
+                },
+                new Project
+                {
+                    Framework = "framework3",
+                    Language = "vb6",
+                    Path = @"c:\Project5"
+                },
+                new Project
+                {
+                    Framework = null,
+                    Language = null,
+                    Path = @"c:\Project6"
                 }
             };
             return projects;
