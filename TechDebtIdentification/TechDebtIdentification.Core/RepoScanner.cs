@@ -12,7 +12,7 @@ namespace TechDebtIdentification.Core
 {
     public class RepoScanner
     {
-        public async Task<ScanSummary> Get(string rootFolder, IProgress<int> progress, CancellationToken cancellationToken = new CancellationToken())
+        public async Task<ScanSummary> Get(string rootFolder, IProgress<int> progress, CancellationToken cancellationToken = new CancellationToken(), bool includeTotal = true)
         {
             int projectCount = 0;
             await Task.Delay(1000, cancellationToken);
@@ -30,8 +30,8 @@ namespace TechDebtIdentification.Core
             }
 
             //Aggregate results
-            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects);
-            List<LanguageSummary> languageSummary = AggregateLanguages(projects);
+            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects, includeTotal);
+            List<LanguageSummary> languageSummary = AggregateLanguages(projects, includeTotal);
 
             //Setup the scan summary
             ScanSummary scanSummary = new ScanSummary
@@ -45,7 +45,7 @@ namespace TechDebtIdentification.Core
 
         }
 
-        public ScanSummary ScanRepo(string rootFolder)
+        public ScanSummary ScanRepo(string rootFolder, bool includeTotal)
         {
             //scan all projects
             List<Project> projects = new List<Project>();
@@ -55,8 +55,8 @@ namespace TechDebtIdentification.Core
             }
             //Aggregate results
             int projectCount = projects.Count;
-            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects);
-            List<LanguageSummary> languageSummary = AggregateLanguages(projects);
+            List<FrameworkSummary> frameworkSummary = AggregateFrameworks(projects, includeTotal);
+            List<LanguageSummary> languageSummary = AggregateLanguages(projects, includeTotal);
 
             //Setup the scan summary
             ScanSummary scanSummary = new ScanSummary
@@ -68,7 +68,7 @@ namespace TechDebtIdentification.Core
             return (scanSummary);
         }
 
-        public List<FrameworkSummary> AggregateFrameworks(List<Project> projects)
+        public List<FrameworkSummary> AggregateFrameworks(List<Project> projects, bool includeTotal)
         {
             List<FrameworkSummary> frameworkSummary = new List<FrameworkSummary>();
             foreach (Project project in projects)
@@ -97,10 +97,14 @@ namespace TechDebtIdentification.Core
                 }
             }
             List<FrameworkSummary> sortedFrameworks = frameworkSummary.OrderBy(o => o.Framework).ToList();
+            if (includeTotal == true)
+            {
+                sortedFrameworks.Add(new FrameworkSummary { Framework = "total frameworks", Count = 0 });
+            }
             return sortedFrameworks;
         }
 
-        public List<LanguageSummary> AggregateLanguages(List<Project> projects)
+        public List<LanguageSummary> AggregateLanguages(List<Project> projects, bool includeTotal)
         {
             List<LanguageSummary> languageSummary = new List<LanguageSummary>();
             foreach (Project project in projects)
@@ -129,6 +133,10 @@ namespace TechDebtIdentification.Core
                 }
             }
             List<LanguageSummary> sortedLanguages = languageSummary.OrderBy(o => o.Language).ToList();
+            if (includeTotal == true)
+            {
+                sortedLanguages.Add(new LanguageSummary { Language = "total languages:", Count = 0 });
+            }
             return sortedLanguages;
         }
 

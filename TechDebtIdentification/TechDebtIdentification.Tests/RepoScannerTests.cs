@@ -55,9 +55,10 @@ namespace TechDebtIdentification.Tests
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
             List<Project> projects = GenerateSampleData();
+            bool includeTotal = true;
 
             //Act
-            List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects);
+            List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects, includeTotal);
 
             //Asset
             Assert.IsTrue(results.Count > 0);
@@ -72,9 +73,10 @@ namespace TechDebtIdentification.Tests
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
             List<Project> projects = GenerateSampleData();
+            bool includeTotal = true;
 
             //Act
-            List<LanguageSummary> results = repoScanner.AggregateLanguages(projects);
+            List<LanguageSummary> results = repoScanner.AggregateLanguages(projects, includeTotal);
 
             //Asset
             Assert.IsTrue(results.Count > 0);
