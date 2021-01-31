@@ -8,46 +8,8 @@ using TechDebtIdentification.Core.Statistics;
 namespace TechDebtIdentification.Tests
 {
     [TestClass]
-    public class RepoScannerTests
+    public class RepoScannerUnitTests
     {
-        //private string repoLocation = "";
-
-        //[TestInitialize]
-        //public void SetupTests()
-        //{
-        //    repoLocation = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\source";
-        //}
-
-        //[TestMethod]
-        //public void ProcessRepoTest()
-        //{
-        //    //Arrange
-        //    RepoScanner repoScanner = new RepoScanner();
-
-        //    //Act
-        //    ScanSummary results = repoScanner.ScanRepo(repoLocation);
-
-        //    //Asset
-        //    Assert.IsTrue(results != null);
-        //    Assert.IsTrue(results.ProjectCount >= 0);
-        //    Assert.IsTrue(results.FrameworkCount >= 0);
-        //    Assert.IsTrue(results.FrameworkSummary.Count >= 0);
-        //    Assert.IsTrue(results.LanguageCount >= 0);
-        //    Assert.IsTrue(results.LanguageSummary.Count >= 0);
-        //}
-
-        //[TestMethod]
-        //public void ProcessFolderTest()
-        //{
-        //    //Arrange
-        //    RepoScanner repoScanner = new RepoScanner();
-
-        //    //Act
-        //    List<Project> results = repoScanner.SearchFolderForProjectFiles(repoLocation);
-
-        //    //Asset
-        //    Assert.IsTrue(results.Count > 0);
-        //}
 
         [TestMethod]
         public void AggregateFrameworksTest()
@@ -61,10 +23,11 @@ namespace TechDebtIdentification.Tests
             List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects, includeTotal);
 
             //Asset
-            Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results.Count == 4);
             Assert.IsTrue(results.Find(i => i.Framework == "framework1").Count == 2);
             Assert.IsTrue(results.Find(i => i.Framework == "framework2").Count == 1);
             Assert.IsTrue(results.Find(i => i.Framework == "framework3").Count == 1);
+            Assert.IsTrue(results[^1].Count == 4);
         }
 
         [TestMethod]
@@ -82,9 +45,10 @@ namespace TechDebtIdentification.Tests
             Assert.IsTrue(results.Count > 0);
             Assert.IsTrue(results.Find(i => i.Language == "csharp").Count == 3);
             Assert.IsTrue(results.Find(i => i.Language == "vbdotnet").Count == 1);
+            Assert.IsTrue(results[^1].Count == 4);
         }
 
-        private List<Project> GenerateSampleData()
+        private static List<Project> GenerateSampleData()
         {
             List<Project> projects = new List<Project>
             {

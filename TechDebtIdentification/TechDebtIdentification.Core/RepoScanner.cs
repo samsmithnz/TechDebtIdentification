@@ -12,7 +12,8 @@ namespace TechDebtIdentification.Core
 {
     public class RepoScanner
     {
-        public async Task<ScanSummary> Get(string rootFolder, IProgress<int> progress, CancellationToken cancellationToken = new CancellationToken(), bool includeTotal = true)
+        public async Task<ScanSummary> ScanRepo(IProgress<int> progress, CancellationToken cancellationToken, 
+            string rootFolder, bool includeTotal = true)
         {
             int projectCount = 0;
             await Task.Delay(1000, cancellationToken);
@@ -70,6 +71,7 @@ namespace TechDebtIdentification.Core
 
         public List<FrameworkSummary> AggregateFrameworks(List<Project> projects, bool includeTotal)
         {
+            int total = 0;
             List<FrameworkSummary> frameworkSummary = new List<FrameworkSummary>();
             foreach (Project project in projects)
             {
@@ -95,17 +97,19 @@ namespace TechDebtIdentification.Core
                     //There is an existing entry, increment the count
                     framework.Count++;
                 }
+                total++;
             }
             List<FrameworkSummary> sortedFrameworks = frameworkSummary.OrderBy(o => o.Framework).ToList();
             if (includeTotal == true)
             {
-                sortedFrameworks.Add(new FrameworkSummary { Framework = "total frameworks", Count = 0 });
+                sortedFrameworks.Add(new FrameworkSummary { Framework = "total frameworks", Count = total });
             }
             return sortedFrameworks;
         }
 
         public List<LanguageSummary> AggregateLanguages(List<Project> projects, bool includeTotal)
         {
+            int total = 0;
             List<LanguageSummary> languageSummary = new List<LanguageSummary>();
             foreach (Project project in projects)
             {
@@ -131,11 +135,12 @@ namespace TechDebtIdentification.Core
                     //There is an existing entry, increment the count
                     language.Count++;
                 }
+                total++;
             }
             List<LanguageSummary> sortedLanguages = languageSummary.OrderBy(o => o.Language).ToList();
             if (includeTotal == true)
             {
-                sortedLanguages.Add(new LanguageSummary { Language = "total languages:", Count = 0 });
+                sortedLanguages.Add(new LanguageSummary { Language = "total languages:", Count = total });
             }
             return sortedLanguages;
         }

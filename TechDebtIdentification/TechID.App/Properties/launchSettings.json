@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TechID": {
+      "commandName": "Project",
+      "commandLineArgs": "-f \"C:\\Users\\samsmit\\source\\repos\""
+    }
+  }
+}
