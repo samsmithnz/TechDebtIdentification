@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtIdentification.Tests", "TechDebtIdentification.Tests\TechDebtIdentification.Tests.csproj", "{1DE080D3-43AB-4600-BF62-024A9FE808A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechID.App", "TechID.App\TechID.App.csproj", "{052B56AE-B816-4F29-A413-86FDB703BB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechID", "TechID.App\TechID.csproj", "{052B56AE-B816-4F29-A413-86FDB703BB6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05D6BD2B-F182-481B-BA98-91953CA5633A}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

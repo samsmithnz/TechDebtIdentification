@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     env:
       dotNetVersion: net5
@@ -17,19 +17,42 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+      with:
+        fetch-depth: 0 #fetch-depth is needed for GitVersion
+        
+    #Install and calculate the new version with GitVersion  
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      id: gitversion # step id used as reference for output values
+    - name: Display GitVersion outputs
+      run: |
+        echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
+        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
+           
+    #Build and test service   
+    - name: Setup .NET 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100      
-    #Build and test service   
+        dotnet-version: 5.0.100  
     - name: Run automated unit and integration tests
-      run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }}
+      run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: TechDebtIdentification/TechDebtIdentification.Tests/TestResults/coverage.info 
+
     #Publish dotnet objects
-    - name: DotNET build console app
-      run: dotnet build TechDebtIdentification/TechID.App/TechID.App.csproj --configuration ${{ env.dotNetConfiguration }}
+    - name: publish console app
+      run: dotnet publish TechDebtIdentification/TechID.App/TechID.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     #Publish build artifacts to GitHub
-    - name: Upload website build artifacts back to GitHub
+    - name: Upload build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
         name: app
-        path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
+        path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
