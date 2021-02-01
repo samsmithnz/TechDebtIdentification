@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TechDebtIdentification.Core.Statistics
+namespace TechDebtID.Core.Statistics
 {
     public class ScanSummary
     {

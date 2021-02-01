@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using TechDebtIdentification.Core;
-using TechDebtIdentification.Core.Statistics;
+using TechDebtID.Core;
+using TechDebtID.Core.Statistics;
 
 
 namespace TechID

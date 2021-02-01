@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TechDebtIdentification.Core.Statistics;
+using TechDebtID.Core.Statistics;
 
-namespace TechDebtIdentification.Core
+namespace TechDebtID.Core
 {
     public class RepoScanner
     {

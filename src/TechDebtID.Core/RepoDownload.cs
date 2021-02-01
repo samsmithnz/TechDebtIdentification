@@ -7,9 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using TechDebtIdentification.Core.Statistics;
+using TechDebtID.Core.Statistics;
 
-namespace TechDebtIdentification.Core
+namespace TechDebtID.Core
 {
     public class RepoDownload
     {
