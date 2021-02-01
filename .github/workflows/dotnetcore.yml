@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{matrix.os}}
 
     env:
       dotNetVersion: net5
@@ -43,11 +45,12 @@ jobs:
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
    # - run: dir TechDebtIdentification/TechDebtIdentification.Tests /s
    #   shell: powershell
-   # - name: Publish coverage report to coveralls.io
-   #   uses: coverallsapp/github-action@master
-   #   with:
-   #     github-token: ${{ secrets.GITHUB_TOKEN }}
-   #     path-to-lcov: TechDebtIdentification/TechDebtIdentification.Tests/TestResults/coverage.info 
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      if: runner.OS == 'Linux' #Only push the Linux coverage
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: TechDebtIdentification/TechDebtIdentification.Tests/TestResults/coverage.info 
 
     #Publish dotnet objects
     - name: publish console app
@@ -55,6 +58,7 @@ jobs:
     #Publish build artifacts to GitHub
     - name: Upload website build artifacts back to GitHub
       uses: actions/upload-artifact@master
+      if: runner.OS == 'Windows' #Only upload the Windows exe
       with:
         name: app
         path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
