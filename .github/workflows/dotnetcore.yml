@@ -41,11 +41,8 @@ jobs:
         dotnet-version: 5.0.100  
     - name: Run automated unit and integration tests
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-   # - run: dir TechDebtIdentification/TechDebtIdentification.Tests /s
-   #   shell: powershell
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
-      if: runner.OS == 'Linux' #Only push the Linux coverage
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: TechDebtIdentification/TechDebtIdentification.Tests/TestResults/coverage.info 
