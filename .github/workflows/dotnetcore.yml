@@ -49,10 +49,10 @@ jobs:
 
     #Publish dotnet objects
     - name: publish console app
-      run: dotnet publish src/TechDebtID.App/TechDebtID.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+      run: dotnet publish src/TechDebtID/TechDebtID.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     #Publish build artifacts to GitHub
     - name: Upload build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
         name: app
-        path: src/TechDebtID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
+        path: src/TechDebtID/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
