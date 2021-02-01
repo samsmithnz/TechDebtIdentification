@@ -41,7 +41,7 @@ jobs:
         dotnet-version: 5.0.100  
     - name: Run automated unit and integration tests
       run: dotnet test TechDebtIdentification/TechDebtIdentification.Tests/TechDebtIdentification.Tests.csproj --configuration ${{ env.dotNetConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-    - run: dir D:\a\TechDebtIdentification\TechDebtIdentification\TechDebtIdentification/TechDebtIdentification.Tests /s
+    - run: dir a\TechDebtIdentification\TechDebtIdentification\TechDebtIdentification\TechDebtIdentification.Tests /s
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
