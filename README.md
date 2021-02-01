@@ -5,7 +5,7 @@ what if... we can help to tackle technical debt?
 
 ![Current build](https://github.com/samsmithnz/TechDebtID/workflows/Technical%20Debt%20ID%20CI/CD/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/TechDebtID/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/TechDebtID?branch=main)
-![Current Release](https://img.shields.io/github/release/samsmithnz/TechDebtID/all.svg)
+
 
 **The first stage is identification**
 
