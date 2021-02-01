@@ -1,11 +1,11 @@
-# TechDebtIdentification
+# TechDebtID
 The exploratory project aims to understand if we can identify, classify and rank technical debt in repos in a way that would be useful
 
 what if... we can help to tackle technical debt?
 
-![Current build](https://github.com/samsmithnz/TechDebtIdentification/workflows/Technical%20Debt%20ID%20CI/CD/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/samsmithnz/TechDebtIdentification/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/TechDebtIdentification?branch=main)
-![Current Release](https://img.shields.io/github/release/samsmithnz/TechDebtIdentification/all.svg)
+![Current build](https://github.com/samsmithnz/TechDebtID/workflows/Technical%20Debt%20ID%20CI/CD/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/samsmithnz/TechDebtID/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/TechDebtID?branch=main)
+![Current Release](https://img.shields.io/github/release/samsmithnz/TechDebtID/all.svg)
 
 **The first stage is identification**
 

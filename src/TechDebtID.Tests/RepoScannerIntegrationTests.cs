@@ -6,10 +6,10 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using TechDebtIdentification.Core;
-using TechDebtIdentification.Core.Statistics;
+using TechDebtID.Core;
+using TechDebtID.Core.Statistics;
 
-namespace TechDebtIdentification.Tests
+namespace TechDebtID.Tests
 {
     [TestClass]
     public class RepoScannerIntegrationTests
@@ -23,7 +23,7 @@ namespace TechDebtIdentification.Tests
             IProgress<int> progress = new Progress<int>();
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
-            string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\TechDebtIdentification.Tests\\bin\\Debug\\net5.0", "").Replace("\\TechDebtIdentification.Tests\\bin\\Release\\net5.0", "");
+            string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "").Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "");
 
             //Act
             ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, null);

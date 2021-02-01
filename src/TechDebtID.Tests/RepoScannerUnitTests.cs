@@ -2,10 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using TechDebtIdentification.Core;
-using TechDebtIdentification.Core.Statistics;
+using TechDebtID.Core;
+using TechDebtID.Core.Statistics;
 
-namespace TechDebtIdentification.Tests
+namespace TechDebtID.Tests
 {
     [TestClass]
     public class RepoScannerUnitTests
