@@ -51,9 +51,8 @@ jobs:
     - name: publish console app
       run: dotnet publish TechDebtIdentification/TechID.App/TechID.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     #Publish build artifacts to GitHub
-    - name: Upload website build artifacts back to GitHub
+    - name: Upload build artifacts back to GitHub
       uses: actions/upload-artifact@master
-      if: runner.OS == 'Windows' #Only upload the Windows exe
       with:
         name: app
-        path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/publish
+        path: TechDebtIdentification/TechID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
