@@ -6,7 +6,7 @@ namespace TechDebtID.Core.Statistics
 {
     public class ScanSummary
     {
-        public int ReposCount { get; set; }
+        //public int ReposCount { get; set; }
         public int ProjectCount { get; set; }
         public List<FrameworkSummary> FrameworkSummary { get; set; }
         public List<LanguageSummary> LanguageSummary { get; set; }

@@ -44,7 +44,7 @@ namespace TechDebtID.Core
             //Setup the scan summary
             ScanSummary scanSummary = new ScanSummary
             {
-                ReposCount = 0,// new DirectoryInfo(rootFolder).GetDirectories().Length,
+                //ReposCount = 0,// new DirectoryInfo(rootFolder).GetDirectories().Length,
                 ProjectCount = projectCount,
                 FrameworkSummary = frameworkSummary,
                 LanguageSummary = languageSummary

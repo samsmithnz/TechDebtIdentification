@@ -26,13 +26,20 @@ namespace TechDebtID.Tests
             string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "").Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "");
 
             //Act
-            ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, null);
+            ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");
 
             //Asset
             //Assert.AreEqual(5, results.ReposCount);
             Assert.AreEqual(3, results.ProjectCount);
             Assert.AreEqual(3, results.FrameworkSummary.Count);
             Assert.AreEqual(2, results.LanguageSummary.Count);
+            string csv = null;
+            using (var sr = new StreamReader("results.csv"))
+            {
+                 csv = sr.ReadToEnd();
+            }
+            Assert.IsNotNull(csv);
+            Assert.IsTrue(csv.Length > 0);
         }
 
     }
