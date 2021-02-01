@@ -168,7 +168,7 @@ namespace TechDebtID.Core
                         projects.AddRange(ProcessDotNetProjectFile(fileInfo.FullName, "vb.net"));
                         break;
                     case ".vbp":
-                        projects.Add(new Project { Path = fileInfo.FullName, Language = "vb6" });
+                        projects.Add(new Project { Path = fileInfo.FullName, Framework = "vb6", Language = "vb6" });
                         break;
                 }
             }
