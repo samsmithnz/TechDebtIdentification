@@ -53,7 +53,7 @@ namespace TechID
                 Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 if (scanSummary != null)
                 {
-                    Console.WriteLine("Repos searched: " + scanSummary.ReposCount);
+                    //Console.WriteLine("Repos searched: " + scanSummary.ReposCount);
                     Console.WriteLine("Project files found: " + scanSummary.ProjectCount);
 
                     Console.WriteLine("======================================");
@@ -74,17 +74,17 @@ namespace TechID
             }
         }
 
-        static string GetFolderFromArguments(string[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == "-f" && i + 1 <= args.Length)
-                {
-                    return args[i + 1];
-                }
-            }
-            return "";
-        }
+        //static string GetFolderFromArguments(string[] args)
+        //{
+        //    for (int i = 0; i < args.Length; i++)
+        //    {
+        //        if (args[i] == "-f" && i + 1 <= args.Length)
+        //        {
+        //            return args[i + 1];
+        //        }
+        //    }
+        //    return "";
+        //}
 
         static void RunOptions(Options opts)
         {

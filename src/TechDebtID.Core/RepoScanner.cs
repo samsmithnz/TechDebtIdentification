@@ -44,7 +44,7 @@ namespace TechDebtID.Core
             //Setup the scan summary
             ScanSummary scanSummary = new ScanSummary
             {
-                ReposCount = 0,// new DirectoryInfo(rootFolder).GetDirectories().Length,
+                //ReposCount = 0,// new DirectoryInfo(rootFolder).GetDirectories().Length,
                 ProjectCount = projectCount,
                 FrameworkSummary = frameworkSummary,
                 LanguageSummary = languageSummary
@@ -168,7 +168,7 @@ namespace TechDebtID.Core
                         projects.AddRange(ProcessDotNetProjectFile(fileInfo.FullName, "vb.net"));
                         break;
                     case ".vbp":
-                        projects.Add(new Project { Path = fileInfo.FullName, Language = "vb6" });
+                        projects.Add(new Project { Path = fileInfo.FullName, Framework = "vb6", Language = "vb6" });
                         break;
                 }
             }
