@@ -57,9 +57,9 @@ namespace TechDebtID.Tests
             ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");
 
             //Asset
-            Assert.AreEqual(3, results.ProjectCount);
-            Assert.AreEqual(4, results.FrameworkSummary.Count);
-            Assert.AreEqual(3, results.LanguageSummary.Count);
+            Assert.AreEqual(8, results.ProjectCount);
+            Assert.AreEqual(7, results.FrameworkSummary.Count);
+            Assert.AreEqual(4, results.LanguageSummary.Count);
             string csv = null;
             using (var sr = new StreamReader("results.csv"))
             {

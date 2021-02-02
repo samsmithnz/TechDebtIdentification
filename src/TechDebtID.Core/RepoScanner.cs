@@ -27,7 +27,10 @@ namespace TechDebtID.Core
                 if (projectCount != projects.Count)
                 {
                     projectCount = projects.Count;
-                    progress?.Report(projectCount);
+                    if (progress != null)
+                    {
+                        progress.Report(projectCount);
+                    }
                 }
             }
 
