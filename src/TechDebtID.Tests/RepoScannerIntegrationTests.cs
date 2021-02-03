@@ -51,7 +51,10 @@ namespace TechDebtID.Tests
             IProgress<int> progress = new Progress<int>();
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
-            string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "").Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\Samples";
+            //Sometimes we have a Debug build, sometimes Release, handle both to find the samples folder
+            string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\Samples";
 
             //Act
             ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");
