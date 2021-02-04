@@ -47,7 +47,6 @@ namespace TechDebtID.Tests
             repoSync.CloneRepoToAzureStorage(azureStorageConnectionString, repo, destination);
 
             //Asset
-            Assert.IsTrue(Configuration["AzureStorageConnectionString"] == "DefaultEndpointsProtocol=https;AccountName=techdebtprodeustorage;AccountKey=GfCXUHjuyde8Ra0GW6HI6AHZZ6xFsh126H+QiRST4R4jL/kYJAMdm8WKaE5MDQ7z5aM3CuKdiM7FvawavMi4dg==;EndpointSuffix=core.windows.net");
             DirectoryInfo dir = new DirectoryInfo(destination);
             Assert.IsTrue(dir.GetFiles().Length > 0);
         }
