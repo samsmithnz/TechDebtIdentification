@@ -34,6 +34,8 @@ namespace TechDebtID.Tests
         {
             //Arrange
             IConfigurationBuilder config = new ConfigurationBuilder()
+               .SetBasePath(AppContext.BaseDirectory)
+               .AddJsonFile("appsettings.json")
                .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
             IConfigurationRoot Configuration = config.Build();
             RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
@@ -56,6 +58,8 @@ namespace TechDebtID.Tests
         {
             //Arrange
             IConfigurationBuilder config = new ConfigurationBuilder()
+               .SetBasePath(AppContext.BaseDirectory)
+               .AddJsonFile("appsettings.json")
                .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
             IConfigurationRoot Configuration = config.Build();
             RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
