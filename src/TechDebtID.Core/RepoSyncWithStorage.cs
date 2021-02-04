@@ -32,13 +32,15 @@ namespace TechDebtID.Core
                 //clean up and remove the .git hidden folder and files
                 foreach (FileInfo file in files)
                 {
-                    if ((file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
-                    {
-                        file.Attributes &= ~FileAttributes.Hidden;
-                    }
+                    //remove the readonly attribute
                     if ((file.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
                     {
                         file.Attributes &= ~FileAttributes.ReadOnly;
+                    }
+                    //remove the hidden attribute
+                    if ((file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                    {
+                        file.Attributes &= ~FileAttributes.Hidden;
                     }
                 }
                 Directory.Delete(destination, true);
@@ -51,18 +53,6 @@ namespace TechDebtID.Core
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
             return dirInfo.GetFiles();
         }
-
-        //private FileInfo[] GetHiddenOnlyFiles(FileInfo[] Files)
-        //{
-        //    List<FileInfo> result = new List<FileInfo>();
-        //    foreach (FileInfo file in Files)
-        //        if (file.Attributes & FileAttributes.Hidden)
-        //            result.Add(file);
-        //    return result.ToArray();
-        //}
-
-
-
 
         //        public async Task<List<string>> GetListOfReposFromGitHub()
         //        {
