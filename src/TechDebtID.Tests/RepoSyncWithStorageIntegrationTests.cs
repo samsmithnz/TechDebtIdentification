@@ -14,7 +14,7 @@ namespace TechDebtID.Tests
     public class RepoSyncWithStorageIntegrationTests
     {
         [TestMethod]
-        public async Task GetGitHubRepoTest()
+        public async Task GetGitHubRepoIntegrationTest()
         {
             //Arrange
             GitHub repo = new GitHub();
@@ -30,7 +30,7 @@ namespace TechDebtID.Tests
         }
 
         [TestMethod]
-        public void DownloadRepoToStorageTest()
+        public void DownloadRepoToStorageIntegrationTest()
         {
             //Arrange
             IConfigurationBuilder config = new ConfigurationBuilder()
@@ -44,7 +44,31 @@ namespace TechDebtID.Tests
                 .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation";
 
             //Act
-            repoSync.CloneRepoToAzureStorage(azureStorageConnectionString, repo, destination);
+            repoSync.CloneRepoToAzureStorage(repo, destination);
+
+            //Asset
+            DirectoryInfo dir = new DirectoryInfo(destination);
+            Assert.IsTrue(dir.GetFiles().Length > 0);
+        }
+
+        [TestMethod]
+        public async Task UploadFilesToStorageIntegrationTest()
+        {
+            //Arrange
+            IConfigurationBuilder config = new ConfigurationBuilder()
+               .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
+            IConfigurationRoot Configuration = config.Build();
+            RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
+            string azureStorageConnectionString = Configuration["AzureStorageConnectionString"];
+            string repo = "samsmithnz/SamsFeatureFlags";
+            string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation\\";
+            //int index = destination.IndexOf("GitHubTempLocation") + "GitHubTempLocation".Length;
+            //string rootFolder = destination.Substring(index); 
+            
+            //Act
+            await repoSync.UploadFilesToStorageBlobs(azureStorageConnectionString, repo,  destination);
 
             //Asset
             DirectoryInfo dir = new DirectoryInfo(destination);
