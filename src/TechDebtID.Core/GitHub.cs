@@ -41,29 +41,17 @@ namespace TechDebtID.Core
         public async Task<List<string>> GetGitHubRepoFiles(string organization, string repo, string defaultBranch)
         {
             List<string> files = new List<string>();
-            //string treeSha = null;
-            //JsonElement resultJson = await GetGitHubCommitsFromAPI("", "", organization, repo);
-            //foreach (JsonElement repoJson in resultJson.EnumerateArray())
-            //{
-            //    if (repoJson.TryGetProperty("commit", out JsonElement jsonElement) == true)
-            //    {
-            //        treeSha = repoJson.GetProperty("commit").GetProperty("tree").GetProperty("sha").ToString();
-            //        break;
-            //    }
-            //}
-            //if (treeSha != null)
-            //{
-                JsonElement resultJson2 = await GetGitHubCommitFilesFromAPI("", "", organization, repo, defaultBranch);
-                if (resultJson2.TryGetProperty("tree", out JsonElement jsonElementTree) == true)
+            JsonElement resultJson2 = await GetGitHubCommitFilesFromAPI("", "", organization, repo, defaultBranch);
+            if (resultJson2.TryGetProperty("tree", out JsonElement jsonElementTree) == true)
+            {
+                foreach (JsonElement repoJson in jsonElementTree.EnumerateArray())
                 {
-                    foreach (JsonElement repoJson in jsonElementTree.EnumerateArray())
+                    if (repoJson.TryGetProperty("path", out JsonElement jsonElement) == true)
                     {
-                        if (repoJson.TryGetProperty("path", out JsonElement jsonElement) == true)
-                        {
-                            files.Add(jsonElement.ToString());
-                        }
+                        files.Add(jsonElement.ToString());
                     }
                 }
+            }
             return files;
         }
 
@@ -82,26 +70,26 @@ namespace TechDebtID.Core
             return result;
         }
 
-        //Get GitHub commit list (required to get the last commit and hence files on commit)
-        private async Task<JsonElement> GetGitHubCommitsFromAPI(string clientId, string clientSecret, string owner, string repo)
-        {
-            JsonElement result = new JsonElement();
-            //https://docs.github.com/en/rest/reference/repos#list-commits
-            //GET /repos/{owner}/{repo}/commits
-            string url = $"https://api.github.com/repos/{owner}/{repo}/commits";
-            string response = await GetGitHubMessage(url, clientId, clientSecret);
-            if (string.IsNullOrEmpty(response) == false)
-            {
-                result = JsonSerializer.Deserialize<JsonElement>(response);
-            }
-            return result;
-        }
+        ////Get GitHub commit list (required to get the last commit and hence files on commit)
+        //private async Task<JsonElement> GetGitHubCommitsFromAPI(string clientId, string clientSecret, string owner, string repo)
+        //{
+        //    JsonElement result = new JsonElement();
+        //    //https://docs.github.com/en/rest/reference/repos#list-commits
+        //    //GET /repos/{owner}/{repo}/commits
+        //    string url = $"https://api.github.com/repos/{owner}/{repo}/commits";
+        //    string response = await GetGitHubMessage(url, clientId, clientSecret);
+        //    if (string.IsNullOrEmpty(response) == false)
+        //    {
+        //        result = JsonSerializer.Deserialize<JsonElement>(response);
+        //    }
+        //    return result;
+        //}
 
         //Get GitHub commit contents (needed to get a list of files in a repo)
         private async Task<JsonElement> GetGitHubCommitFilesFromAPI(string clientId, string clientSecret, string owner, string repo, string defaultBranch)
         {
             JsonElement result = new JsonElement();
-            //https://docs.github.com/en/rest/reference/git#get-a-tree
+            //https://docs.github.com/en/rest/reference/git#trees
             //GET /repos/{owner}/{repo}/commits/{ref}
             string url = $"https://api.github.com/repos/{owner}/{repo}/git/trees/{defaultBranch}?recursive=1";
             string response = await GetGitHubMessage(url, clientId, clientSecret);
