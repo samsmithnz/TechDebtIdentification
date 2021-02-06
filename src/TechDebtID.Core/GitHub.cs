@@ -30,8 +30,7 @@ namespace TechDebtID.Core
             JsonElement resultJson = await GetGitHubReposFromAPI("", "", organization);
             foreach (JsonElement repoJson in resultJson.EnumerateArray())
             {
-                JsonElement jsonElement = new JsonElement();
-                if (repoJson.TryGetProperty("full_name", out jsonElement) == true)
+                if (repoJson.TryGetProperty("full_name", out JsonElement jsonElement) == true)
                 {
                     repos.Add(jsonElement.ToString());
                 }
@@ -39,7 +38,37 @@ namespace TechDebtID.Core
             return repos;
         }
 
-        public async Task<JsonElement> GetGitHubReposFromAPI(string clientId, string clientSecret, string owner)
+        public async Task<List<string>> GetGitHubRepoFiles(string organization, string repo, string defaultBranch)
+        {
+            List<string> files = new List<string>();
+            //string treeSha = null;
+            //JsonElement resultJson = await GetGitHubCommitsFromAPI("", "", organization, repo);
+            //foreach (JsonElement repoJson in resultJson.EnumerateArray())
+            //{
+            //    if (repoJson.TryGetProperty("commit", out JsonElement jsonElement) == true)
+            //    {
+            //        treeSha = repoJson.GetProperty("commit").GetProperty("tree").GetProperty("sha").ToString();
+            //        break;
+            //    }
+            //}
+            //if (treeSha != null)
+            //{
+                JsonElement resultJson2 = await GetGitHubCommitFilesFromAPI("", "", organization, repo, defaultBranch);
+                if (resultJson2.TryGetProperty("tree", out JsonElement jsonElementTree) == true)
+                {
+                    foreach (JsonElement repoJson in jsonElementTree.EnumerateArray())
+                    {
+                        if (repoJson.TryGetProperty("path", out JsonElement jsonElement) == true)
+                        {
+                            files.Add(jsonElement.ToString());
+                        }
+                    }
+                }
+            return files;
+        }
+
+
+        private async Task<JsonElement> GetGitHubReposFromAPI(string clientId, string clientSecret, string owner)
         {
             JsonElement result = new JsonElement();
             //https://docs.github.com/en/rest/reference/repos
@@ -53,7 +82,53 @@ namespace TechDebtID.Core
             return result;
         }
 
-        public async static Task<string> GetGitHubMessage(string url, string clientId, string clientSecret)
+        //Get GitHub commit list (required to get the last commit and hence files on commit)
+        private async Task<JsonElement> GetGitHubCommitsFromAPI(string clientId, string clientSecret, string owner, string repo)
+        {
+            JsonElement result = new JsonElement();
+            //https://docs.github.com/en/rest/reference/repos#list-commits
+            //GET /repos/{owner}/{repo}/commits
+            string url = $"https://api.github.com/repos/{owner}/{repo}/commits";
+            string response = await GetGitHubMessage(url, clientId, clientSecret);
+            if (string.IsNullOrEmpty(response) == false)
+            {
+                result = JsonSerializer.Deserialize<JsonElement>(response);
+            }
+            return result;
+        }
+
+        //Get GitHub commit contents (needed to get a list of files in a repo)
+        private async Task<JsonElement> GetGitHubCommitFilesFromAPI(string clientId, string clientSecret, string owner, string repo, string defaultBranch)
+        {
+            JsonElement result = new JsonElement();
+            //https://docs.github.com/en/rest/reference/git#get-a-tree
+            //GET /repos/{owner}/{repo}/commits/{ref}
+            string url = $"https://api.github.com/repos/{owner}/{repo}/git/trees/{defaultBranch}?recursive=1";
+            string response = await GetGitHubMessage(url, clientId, clientSecret);
+            if (string.IsNullOrEmpty(response) == false)
+            {
+                result = JsonSerializer.Deserialize<JsonElement>(response);
+            }
+            return result;
+        }
+
+        ////Get GitHub file content
+        //private async Task<JsonElement> GetGitHubFileContentsFromAPI(string clientId, string clientSecret, string owner, string repo, string path)
+        //{
+        //    JsonElement result = new JsonElement();
+        //    //https://docs.github.com/en/rest/reference/repos#get-repository-content
+        //    //GET /repos/{owner}/{repo}/contents/{path}
+        //    string url = $"https://api.github.com/repos/{owner}/{repo}/contents/{path}";
+        //    string response = await GetGitHubMessage(url, clientId, clientSecret);
+        //    if (string.IsNullOrEmpty(response) == false)
+        //    {
+        //        result = JsonSerializer.Deserialize<JsonElement>(response);
+        //    }
+        //    return result;
+        //}
+
+        //package up the url request, client id and secret (if exists), and send and process the request
+        private async static Task<string> GetGitHubMessage(string url, string clientId, string clientSecret)
         {
             Console.WriteLine($"Running GitHub url: {url}");
             string responseBody = "";

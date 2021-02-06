@@ -21,4 +21,6 @@ techid.exe -f "c:\repos" -t true -o "c:\results\results.csv"
   -t, --totals    (Default: false) Include totals in results
 
   -o, --output    output file to create csv file
+
+  -g, --githubOrg 
 ```
