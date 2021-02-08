@@ -31,7 +31,7 @@ namespace TechDebtID.Tests
 
 
         [TestMethod]
-        public async Task GetGitHubRepoCommitsIntegrationTest()
+        public async Task GetGitHubRepoFilesIntegrationTest()
         {
             //Arrange
             GitHub gh = new GitHub();
@@ -45,7 +45,8 @@ namespace TechDebtID.Tests
             //Asset
             Assert.IsTrue(results != null);
             Assert.AreEqual(10, results.Count);
-            //Assert.IsTrue(results[0] == "samsmithnz/AppSettingsYamlTest");
+            Assert.IsTrue(results[0] == ".github");
+            Assert.IsTrue(results[^1] == "AppSettingsYamlTest/AppSettingsYamlTest.sln");
         }
 
         [TestMethod]
