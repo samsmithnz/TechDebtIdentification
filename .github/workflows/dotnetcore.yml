@@ -39,6 +39,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100  
+    - name: Variable Substitution appsettings file for tests
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: 'src/TechDebtID.Tests/appsettings.json'
+      env:
+        AzureStorageConnectionString: "${{ secrets.AzureStorageConnectionString }}"   
     - name: Run automated unit and integration tests
       run: dotnet test src/TechDebtID.Tests/TechDebtID.Tests.csproj --configuration ${{ env.dotNetConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: Publish coverage report to coveralls.io

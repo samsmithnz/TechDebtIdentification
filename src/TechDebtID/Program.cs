@@ -18,6 +18,7 @@ namespace TechID
         private static string _folder;
         private static bool _includeTotals;
         private static string _outputFile;
+        private static string _GitHubOrganization;
         private static ProgressBar progressBar;
 
         static async Task Main(string[] args)
@@ -60,9 +61,12 @@ namespace TechID
                     Console.WriteLine(ex.Message, "Error");
                 }
 
+
                 //results
                 ReportProgress(new ProgressMessage());
                 Console.WriteLine("Processed in " + timer.Elapsed.ToString());
+                Console.WriteLine("Processed in " + timer.Elapsed.ToString());
+                Console.WriteLine("GitHub repo scanned: " + _GitHubOrganization);
                 if (scanSummary != null)
                 {
                     //Console.WriteLine("Repos searched: " + scanSummary.ReposCount);
@@ -104,6 +108,7 @@ namespace TechID
             _folder = opts.Folder;
             _includeTotals = opts.IncludeTotals;
             _outputFile = opts.OutputFile;
+            _GitHubOrganization = opts.GitHubOrganization;
         }
         static void HandleParseError(IEnumerable<Error> errs)
         {

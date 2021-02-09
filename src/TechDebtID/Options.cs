@@ -9,6 +9,9 @@ namespace TechID
         [Option('t', "totals", Required = false, Default = false, HelpText = "Include totals in results")]
         public bool IncludeTotals { get; set; }   
         [Option('o', "output", Required = false, HelpText = "output file to create csv file")]
-        public string OutputFile { get; set; }
+        public string OutputFile { get; set; } 
+
+        [Option('g', "githubOrg", Required = false, HelpText = "GitHub organization to download public repos from. e.g: ")]
+        public string GitHubOrganization { get; set; }
     }
 }
