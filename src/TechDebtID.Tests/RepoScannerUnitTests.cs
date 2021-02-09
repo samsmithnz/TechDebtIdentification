@@ -1,7 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using TechDebtID.Core;
 using TechDebtID.Core.Statistics;
 
@@ -23,10 +21,10 @@ namespace TechDebtID.Tests
             List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects, includeTotal);
 
             //Asset
-            Assert.AreEqual(5, results.Count);
-            Assert.AreEqual(2, results.Find(i => i.Framework == "framework1").Count);
-            Assert.AreEqual(1, results.Find(i => i.Framework == "framework2").Count);
-            Assert.AreEqual(2, results.Find(i => i.Framework == "framework3").Count);
+            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual(2, results.Find(i => i.Framework == "netstandard2.0").Count);
+            Assert.AreEqual(1, results.Find(i => i.Framework == "netcoreapp3.1").Count);
+            Assert.AreEqual(1, results.Find(i => i.Framework == "net45").Count);
             Assert.AreEqual(6, results[^1].Count);
         }
 
@@ -54,31 +52,31 @@ namespace TechDebtID.Tests
             {
                 new Project
                 {
-                    Framework = "framework1",
+                    Framework = "netstandard2.0",
                     Language = "csharp",
                     Path = @"c:\Project1"
                 },
                 new Project
                 {
-                    Framework = "framework1",
+                    Framework = "netstandard2.0",
                     Language = "csharp",
                     Path = @"c:\Project2"
                 },
                 new Project
                 {
-                    Framework = "framework2",
+                    Framework = "netcoreapp3.1",
                     Language = "csharp",
                     Path = @"c:\Project3"
                 },
                 new Project
                 {
-                    Framework = "framework3",
+                    Framework = "net45",
                     Language = "vbdotnet",
                     Path = @"c:\Project4"
                 },
                 new Project
                 {
-                    Framework = "framework3",
+                    Framework = "vb6",
                     Language = "vb6",
                     Path = @"c:\Project5"
                 },
