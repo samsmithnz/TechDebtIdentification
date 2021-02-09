@@ -65,8 +65,7 @@ namespace TechID
                 //results
                 ReportProgress(new ProgressMessage());
                 Console.WriteLine("Processed in " + timer.Elapsed.ToString());
-                ReportProgress(0);
-                                Console.WriteLine("Processed in " + timer.Elapsed.ToString());
+                Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 Console.WriteLine("GitHub repo scanned: " + _GitHubOrganization);
                 if (scanSummary != null)
                 {
