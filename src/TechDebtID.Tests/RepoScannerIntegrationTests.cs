@@ -60,9 +60,37 @@ namespace TechDebtID.Tests
             ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");
 
             //Asset
-            Assert.AreEqual(8, results.ProjectCount);
-            Assert.AreEqual(7, results.FrameworkSummary.Count);
+            Assert.AreEqual(9, results.ProjectCount);
+
+            //Framework tests
+            Assert.AreEqual(8, results.FrameworkSummary.Count);
+            Assert.AreEqual("net45", results.FrameworkSummary[0].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[0].Count);            
+            Assert.AreEqual("net5.0", results.FrameworkSummary[1].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[1].Count);            
+            Assert.AreEqual("netcoreapp3.1", results.FrameworkSummary[2].Framework);
+            Assert.AreEqual(3, results.FrameworkSummary[2].Count);            
+            Assert.AreEqual("netstandard2.0", results.FrameworkSummary[3].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[3].Count);            
+            Assert.AreEqual("v1.0", results.FrameworkSummary[4].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[4].Count);            
+            Assert.AreEqual("v4.7.2", results.FrameworkSummary[5].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[5].Count);            
+            Assert.AreEqual("vb6", results.FrameworkSummary[6].Framework);
+            Assert.AreEqual(1, results.FrameworkSummary[6].Count);            
+            Assert.AreEqual("total frameworks", results.FrameworkSummary[7].Framework);
+            Assert.AreEqual(9, results.FrameworkSummary[7].Count);   
+
+            //Language tests
             Assert.AreEqual(4, results.LanguageSummary.Count);
+            Assert.AreEqual("csharp", results.LanguageSummary[0].Language);
+            Assert.AreEqual(6, results.LanguageSummary[0].Count);
+            Assert.AreEqual("vb.net", results.LanguageSummary[1].Language);
+            Assert.AreEqual(2, results.LanguageSummary[1].Count);
+            Assert.AreEqual("vb6", results.LanguageSummary[2].Language);
+            Assert.AreEqual(1, results.LanguageSummary[2].Count);
+            Assert.AreEqual("total languages:", results.LanguageSummary[3].Language);
+            Assert.AreEqual(9, results.LanguageSummary[3].Count);
             string csv = null;
             using (var sr = new StreamReader("results.csv"))
             {
