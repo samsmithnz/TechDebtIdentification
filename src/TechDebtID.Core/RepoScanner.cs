@@ -13,7 +13,7 @@ namespace TechDebtID.Core
 {
     public class RepoScanner
     {
-        public async Task<ScanSummary> ScanRepo(IProgress<int> progress, CancellationToken cancellationToken,
+        public async Task<ScanSummary> ScanRepo(IProgress<ProgressMessage> progress, CancellationToken cancellationToken,
             string rootFolder, bool includeTotal = true, string outputFile = null)
         {
             int projectCount = 0;
@@ -21,15 +21,17 @@ namespace TechDebtID.Core
 
             //scan all projects
             List<Project> projects = new List<Project>();
+            int i = 0;
             foreach (DirectoryInfo folder in new DirectoryInfo(rootFolder).GetDirectories())
             {
+                i++;
                 projects.AddRange(SearchFolderForProjectFiles(folder.FullName));
                 if (projectCount != projects.Count)
                 {
                     projectCount = projects.Count;
                     if (progress != null)
                     {
-                        progress.Report(projectCount);
+                        progress.Report(new ProgressMessage { ProjectsProcessed = projectCount, RootProjectsProcessed = i });
                     }
                 }
             }

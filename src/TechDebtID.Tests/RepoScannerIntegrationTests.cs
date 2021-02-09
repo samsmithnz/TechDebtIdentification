@@ -48,7 +48,7 @@ namespace TechDebtID.Tests
         {
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            IProgress<int> progress = new Progress<int>();
+            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>();
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
             string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "").Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\Samples";
