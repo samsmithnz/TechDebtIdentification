@@ -1,8 +1,10 @@
 ﻿using CommandLine;
 using ConsoleTables;
+using ShellProgressBar;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using TechDebtID.Core;
@@ -17,6 +19,7 @@ namespace TechID
         private static bool _includeTotals;
         private static string _outputFile;
         private static string _GitHubOrganization;
+        private static ProgressBar progressBar;
 
         static async Task Main(string[] args)
         {
@@ -31,13 +34,22 @@ namespace TechID
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
                 RepoScanner repo = new RepoScanner();
-                IProgress<int> progress = new Progress<int>(ReportProgress);
+                IProgress<ProgressMessage> progress = new Progress<ProgressMessage>(ReportProgress);
                 CancellationTokenSource tokenSource = new CancellationTokenSource();
                 ScanSummary scanSummary = null;
-               
+                //setup the progress bar
+                int totalProgressBarTicks = new DirectoryInfo(_folder).GetDirectories().Length;
+                ProgressBarOptions options = new ProgressBarOptions
+                {
+                    ProgressCharacter = '─',
+                    ProgressBarOnBottom = true
+                };
+                progressBar = new ProgressBar(totalProgressBarTicks, "My Progress Message", options);
+
                 //do the work
                 try
                 {
+
                     scanSummary = await repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
                 }
                 catch (OperationCanceledException ex)
@@ -51,6 +63,8 @@ namespace TechID
 
 
                 //results
+                ReportProgress(new ProgressMessage());
+                Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 ReportProgress(0);
                                 Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 Console.WriteLine("GitHub repo scanned: " + _GitHubOrganization);
@@ -102,12 +116,14 @@ namespace TechID
             //handle errors
         }
 
-        private static void ReportProgress(int number)
+        private static void ReportProgress(ProgressMessage message)
         {
             //Console.Clear();
-            if (number != 0)
+            if (message.ProjectsProcessed != 0)
             {
-                Console.WriteLine($"Scanning for projects... (projects found: {number})");
+                //progressBar.Report(0.25);
+                progressBar.Tick(message.RootProjectsProcessed, $"Scanning for projects... (projects found: {message.ProjectsProcessed})");
+                //Console.WriteLine($"Scanning for projects... (projects found: {number})");
             }
             else
             {

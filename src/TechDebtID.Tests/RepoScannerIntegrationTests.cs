@@ -48,7 +48,7 @@ namespace TechDebtID.Tests
         {
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            IProgress<int> progress = new Progress<int>();
+            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>();
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
             //Sometimes we have a Debug build, sometimes Release, handle both to find the samples folder
