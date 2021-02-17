@@ -253,10 +253,12 @@ namespace TechDebtID.Core
                 if (line.IndexOf("<TargetFrameworkVersion>") > 0)
                 {
                     project.Framework = line.Replace("<TargetFrameworkVersion>", "").Replace("</TargetFrameworkVersion>", "").Trim();
+                    break;
                 }
                 else if (line.IndexOf("<TargetFramework>") > 0)
                 {
                     project.Framework = line.Replace("<TargetFramework>", "").Replace("</TargetFramework>", "").Trim();
+                    break;
                 }
                 else if (line.IndexOf("<TargetFrameworks>") > 0)
                 {
@@ -279,13 +281,16 @@ namespace TechDebtID.Core
                             projects.Add(additionalProject);
                         }
                     }
+                    break;
                 }
                 else if (line.IndexOf("<ProductVersion>") > 0)
                 {
+                    //Since product version could appear first in the list, and we could still find a target version, don't break out of the loop
                     project.Framework = GetHistoricallyOldFrameworkVersion(line);
                 }
                 else if (line.IndexOf("ProductVersion = ") > 0)
                 {
+                    //Since product version could appear first in the list, and we could still find a target version, don't break out of the loop
                     project.Framework = GetHistoricallyOldFrameworkVersion(line);
                 }
             }
@@ -314,15 +319,16 @@ namespace TechDebtID.Core
             //| Visual Studio 2015        | Dev14         | 14.0.*    | 2.0 – 4.6      |
             //+---------------------------+---------------+-----------+----------------+
 
-            if (productVersion.StartsWith("7.0.") == true)
+            //Only process the earliest Visual Studio's, as the later versions should be picked up by the product version
+            if (productVersion.StartsWith("7.0") == true)
             {
                 return "v1.0";
             }
-            else if (productVersion.StartsWith("7.1.") == true)
+            else if (productVersion.StartsWith("7.1") == true)
             {
                 return "v1.1";
             }
-            else if (productVersion.StartsWith("8.0.") == true)
+            else if (productVersion.StartsWith("8.0") == true)
             {
                 return "v2.0";
             }

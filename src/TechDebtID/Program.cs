@@ -44,12 +44,11 @@ namespace TechID
                     ProgressCharacter = '─',
                     ProgressBarOnBottom = true
                 };
-                progressBar = new ProgressBar(totalProgressBarTicks, "My Progress Message", options);
+                progressBar = new ProgressBar(totalProgressBarTicks, "Searching for project files...", options);
 
                 //do the work
                 try
                 {
-
                     scanSummary = await repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
                 }
                 catch (OperationCanceledException ex)
@@ -60,7 +59,6 @@ namespace TechID
                 {
                     Console.WriteLine(ex.Message, "Error");
                 }
-
 
                 //results
                 ReportProgress(new ProgressMessage());
@@ -90,18 +88,6 @@ namespace TechID
             }
         }
 
-        //static string GetFolderFromArguments(string[] args)
-        //{
-        //    for (int i = 0; i < args.Length; i++)
-        //    {
-        //        if (args[i] == "-f" && i + 1 <= args.Length)
-        //        {
-        //            return args[i + 1];
-        //        }
-        //    }
-        //    return "";
-        //}
-
         static void RunOptions(Options opts)
         {
             //handle options
@@ -110,6 +96,7 @@ namespace TechID
             _outputFile = opts.OutputFile;
             _GitHubOrganization = opts.GitHubOrganization;
         }
+
         static void HandleParseError(IEnumerable<Error> errs)
         {
             //handle errors

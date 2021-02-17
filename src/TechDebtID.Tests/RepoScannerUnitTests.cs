@@ -23,8 +23,11 @@ namespace TechDebtID.Tests
             //Asset
             Assert.AreEqual(6, results.Count);
             Assert.AreEqual(2, results.Find(i => i.Framework == "netstandard2.0").Count);
+            Assert.AreEqual(2, results.Find(i => i.FrameworkFamily == ".NET Standard").Count);
             Assert.AreEqual(1, results.Find(i => i.Framework == "netcoreapp3.1").Count);
+            Assert.AreEqual(1, results.Find(i => i.FrameworkFamily == ".NET Core").Count);
             Assert.AreEqual(1, results.Find(i => i.Framework == "net45").Count);
+            Assert.AreEqual(1, results.Find(i => i.FrameworkFamily == ".NET Framework").Count);
             Assert.AreEqual(6, results[^1].Count);
         }
 
