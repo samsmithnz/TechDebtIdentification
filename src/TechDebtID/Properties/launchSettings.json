@@ -2,7 +2,7 @@
   "profiles": {
     "TechID": {
       "commandName": "Project",
-      "commandLineArgs": "-f \"C:\\Users\\samsmit\\source\" -t true -o \"C:\\Users\\samsmit\\OneDrive - Microsoft\\Desktop\\techdebt.csv\" -g samsmithnz"
+      "commandLineArgs": "-f \"C:\\Users\\samsmit\\source\" -i true -o \"C:\\Users\\samsmit\\OneDrive - Microsoft\\Desktop\\techdebt.csv\" -g samsmithnz"
     }
   }
 }
