@@ -71,18 +71,18 @@ namespace TechID
                     Console.WriteLine("Project files found: " + scanSummary.ProjectCount);
 
                     Console.WriteLine("======================================");
-                    Console.WriteLine("Unique frameworks found: " + scanSummary.FrameworkSummary.Count);
                     ConsoleTable
                         .From<FrameworkSummary>(scanSummary.FrameworkSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
+                    Console.WriteLine("Unique frameworks: " + (scanSummary.FrameworkSummary.Count - 1).ToString());
 
                     Console.WriteLine("======================================");
-                    Console.WriteLine("Unique languages found: " + scanSummary.LanguageSummary.Count);
                     ConsoleTable
                         .From<LanguageSummary>(scanSummary.LanguageSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
+                    Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                 }
 
             }

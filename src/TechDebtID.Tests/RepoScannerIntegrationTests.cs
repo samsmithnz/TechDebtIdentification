@@ -48,7 +48,7 @@ namespace TechDebtID.Tests
         {
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>();
+            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>(ReportProgress);
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
             //Sometimes we have a Debug build, sometimes Release, handle both to find the samples folder
@@ -62,8 +62,8 @@ namespace TechDebtID.Tests
 
             //Asset
             Assert.AreEqual(9, results.ProjectCount);
-            //Assert.AreEqual(0, progress.);
-            //Assert.AreEqual(0, );
+            Assert.AreEqual(1, this.ProjectsProcessed);
+            Assert.AreEqual(1, this.RootProjectsProcessed);
 
             //Framework tests
             Assert.AreEqual(8, results.FrameworkSummary.Count);
@@ -104,5 +104,12 @@ namespace TechDebtID.Tests
             //TODO: Add checks to confirm contents are as expected
         }
 
+        private int ProjectsProcessed { get; set; }
+        private int RootProjectsProcessed { get; set; }
+        private void ReportProgress(ProgressMessage message)
+        {
+            this.ProjectsProcessed = message.ProjectsProcessed;
+            this.RootProjectsProcessed = message.RootProjectsProcessed;
+        }
     }
 }
