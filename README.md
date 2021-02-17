@@ -44,6 +44,7 @@ v4.7.2            .NET Framework       6
 vb6               Visual Basic 6       1
 total frameworks                     223
 unique frameworks:                    22
+
 ======================================
 Language          Count
 -----------------------
@@ -51,7 +52,7 @@ csharp              205
 vb.net               17
 vb6                   1
 total languages:    223
-unique languages:	  3
+unique languages:     3
 ```
 
 ### Parameters
