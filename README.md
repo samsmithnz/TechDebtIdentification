@@ -14,6 +14,46 @@ what if... we can help to tackle technical debt?
 techid.exe -f "c:\repos" -i true -o "c:\results\results.csv"
 ```
 
+Sample results:
+```
+Project files found: 223
+======================================
+Framework         FrameworkFamily  Count
+----------------------------------------
+net45             .NET Framework       1
+net5.0            .NET                30
+net5.0-windows    .NET                 3
+netcoreapp2.0     .NET Core            1
+netcoreapp2.1     .NET Core           25
+netcoreapp2.2     .NET Core            3
+netcoreapp3.0     .NET Core           11
+netcoreapp3.1     .NET Core           35
+netstandard2.0    .NET Standard       13
+netstandard2.1    .NET Standard        5
+v1.0              .NET Framework       2
+v1.1              .NET Framework       3
+v2.0              .NET Framework       6
+v3.5              .NET Framework      21
+v4.0              .NET Framework       4
+v4.5              .NET Framework       4
+v4.5.2            .NET Framework       5
+v4.6              .NET Framework       2
+v4.6.1            .NET Framework      33
+v4.7.1            .NET Framework       9
+v4.7.2            .NET Framework       6
+vb6               Visual Basic 6       1
+total frameworks                     223
+unique frameworks:                    22
+======================================
+Language          Count
+-----------------------
+csharp              205
+vb.net               17
+vb6                   1
+total languages:    223
+unique languages:	  3
+```
+
 ### Parameters
 ```
   -f, --folder:	Required. Root local folder to search for projects, e.g. c:\repos
