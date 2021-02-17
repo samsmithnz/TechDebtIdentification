@@ -11,16 +11,16 @@ what if... we can help to tackle technical debt?
 
 ## Usage
 ```
-techid.exe -f "c:\repos" -t true -o "c:\results\results.csv"
+techid.exe -f "c:\repos" -i true -o "c:\results\results.csv"
 ```
 
 ### Parameters
 ```
-  -f, --folder    Required. Root folder to search for projects
+  -f, --folder:	Required. Root local folder to search for projects, e.g. c:\repos
 
-  -t, --totals    (Default: false) Include totals in results
+  -t, --includetotals: (Default is false) Include totals in results
 
-  -o, --output    output file to create csv file
+  -o, --output: output file to create csv file; e.g. c:\results\results.csv
 
-  -g, --githubOrg 
+  -g, --githubOrg: GitHub org to scan; e.g. samsmithnz 
 ```

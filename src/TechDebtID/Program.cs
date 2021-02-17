@@ -44,12 +44,11 @@ namespace TechID
                     ProgressCharacter = '─',
                     ProgressBarOnBottom = true
                 };
-                progressBar = new ProgressBar(totalProgressBarTicks, "My Progress Message", options);
+                progressBar = new ProgressBar(totalProgressBarTicks, "Searching for project files...", options);
 
                 //do the work
                 try
                 {
-
                     scanSummary = await repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
                 }
                 catch (OperationCanceledException ex)
@@ -60,7 +59,6 @@ namespace TechID
                 {
                     Console.WriteLine(ex.Message, "Error");
                 }
-
 
                 //results
                 ReportProgress(new ProgressMessage());
@@ -73,34 +71,22 @@ namespace TechID
                     Console.WriteLine("Project files found: " + scanSummary.ProjectCount);
 
                     Console.WriteLine("======================================");
-                    Console.WriteLine("Unique frameworks found: " + scanSummary.FrameworkSummary.Count);
                     ConsoleTable
                         .From<FrameworkSummary>(scanSummary.FrameworkSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
+                    Console.WriteLine("Unique frameworks: " + (scanSummary.FrameworkSummary.Count - 1).ToString());
 
                     Console.WriteLine("======================================");
-                    Console.WriteLine("Unique languages found: " + scanSummary.LanguageSummary.Count);
                     ConsoleTable
                         .From<LanguageSummary>(scanSummary.LanguageSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
+                    Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                 }
 
             }
         }
-
-        //static string GetFolderFromArguments(string[] args)
-        //{
-        //    for (int i = 0; i < args.Length; i++)
-        //    {
-        //        if (args[i] == "-f" && i + 1 <= args.Length)
-        //        {
-        //            return args[i + 1];
-        //        }
-        //    }
-        //    return "";
-        //}
 
         static void RunOptions(Options opts)
         {
@@ -110,6 +96,7 @@ namespace TechID
             _outputFile = opts.OutputFile;
             _GitHubOrganization = opts.GitHubOrganization;
         }
+
         static void HandleParseError(IEnumerable<Error> errs)
         {
             //handle errors

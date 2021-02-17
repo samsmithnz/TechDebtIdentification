@@ -6,12 +6,11 @@ namespace TechID
     {
         [Option('f', "folder", Required = true, HelpText = "Root folder to search for projects")]
         public string Folder { get; set; }
-        [Option('t', "totals", Required = false, Default = false, HelpText = "Include totals in results")]
+        [Option('i', "includetotals", Required = false, Default = false, HelpText = "Include totals in results")]
         public bool IncludeTotals { get; set; }   
         [Option('o', "output", Required = false, HelpText = "output file to create csv file")]
         public string OutputFile { get; set; } 
-
-        [Option('g', "githubOrg", Required = false, HelpText = "GitHub organization to download public repos from. e.g: ")]
+        [Option('g', "githuborg", Required = false, HelpText = "GitHub organization to download public repos from. e.g: ")]
         public string GitHubOrganization { get; set; }
     }
 }

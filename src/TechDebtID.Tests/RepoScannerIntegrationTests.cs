@@ -48,7 +48,7 @@ namespace TechDebtID.Tests
         {
             //Arrange
             RepoScanner repoScanner = new RepoScanner();
-            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>();
+            IProgress<ProgressMessage> progress = new Progress<ProgressMessage>(ReportProgress);
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             bool includeTotal = true;
             //Sometimes we have a Debug build, sometimes Release, handle both to find the samples folder
@@ -58,28 +58,31 @@ namespace TechDebtID.Tests
 
             //Act
             ScanSummary results = await repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");
+            progress.Report(new ProgressMessage { ProjectsProcessed = 1, RootProjectsProcessed = 1 });
 
             //Asset
             Assert.AreEqual(9, results.ProjectCount);
+            Assert.AreEqual(1, this.ProjectsProcessed);
+            Assert.AreEqual(1, this.RootProjectsProcessed);
 
             //Framework tests
             Assert.AreEqual(8, results.FrameworkSummary.Count);
             Assert.AreEqual("net45", results.FrameworkSummary[0].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[0].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[0].Count);
             Assert.AreEqual("net5.0", results.FrameworkSummary[1].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[1].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[1].Count);
             Assert.AreEqual("netcoreapp3.1", results.FrameworkSummary[2].Framework);
-            Assert.AreEqual(3, results.FrameworkSummary[2].Count);            
+            Assert.AreEqual(3, results.FrameworkSummary[2].Count);
             Assert.AreEqual("netstandard2.0", results.FrameworkSummary[3].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[3].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[3].Count);
             Assert.AreEqual("v1.0", results.FrameworkSummary[4].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[4].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[4].Count);
             Assert.AreEqual("v4.7.2", results.FrameworkSummary[5].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[5].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[5].Count);
             Assert.AreEqual("vb6", results.FrameworkSummary[6].Framework);
-            Assert.AreEqual(1, results.FrameworkSummary[6].Count);            
+            Assert.AreEqual(1, results.FrameworkSummary[6].Count);
             Assert.AreEqual("total frameworks", results.FrameworkSummary[7].Framework);
-            Assert.AreEqual(9, results.FrameworkSummary[7].Count);   
+            Assert.AreEqual(9, results.FrameworkSummary[7].Count);
 
             //Language tests
             Assert.AreEqual(4, results.LanguageSummary.Count);
@@ -101,5 +104,12 @@ namespace TechDebtID.Tests
             //TODO: Add checks to confirm contents are as expected
         }
 
+        private int ProjectsProcessed { get; set; }
+        private int RootProjectsProcessed { get; set; }
+        private void ReportProgress(ProgressMessage message)
+        {
+            this.ProjectsProcessed = message.ProjectsProcessed;
+            this.RootProjectsProcessed = message.RootProjectsProcessed;
+        }
     }
 }
