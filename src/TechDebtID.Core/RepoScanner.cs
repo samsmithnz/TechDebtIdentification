@@ -100,10 +100,6 @@ namespace TechDebtID.Core
             {
                 return null;
             }
-            else if (framework.StartsWith("net5.0"))
-            {
-                return ".NET";
-            }
             else if (framework.StartsWith("netcoreapp"))
             {
                 return ".NET Core";
@@ -127,6 +123,10 @@ namespace TechDebtID.Core
             else if (framework.StartsWith("v4.") || framework.StartsWith("net4"))
             {
                 return ".NET Framework";
+            }
+            else if (framework.StartsWith("net")) //net5.0, net6.0, etc
+            {
+                return ".NET";
             }
             else if (framework.StartsWith("vb6"))
             {
