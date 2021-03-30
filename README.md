@@ -14,7 +14,19 @@ what if... we can help to tackle technical debt?
 techid.exe -f "c:\repos" -i true -o "c:\results\results.csv"
 ```
 
-Sample results:
+### Parameters
+```
+  -f, --folder:	Required. Root local folder to search for projects, e.g. c:\repos
+
+  -t, --includetotals: (Default is false) Include totals in results
+
+  -o, --output: output file to create csv file; e.g. c:\results\results.csv
+
+  -g, --githubOrg: GitHub org to scan; e.g. samsmithnz 
+```
+
+
+### Sample output:
 ```
 Project files found: 223
 ======================================
@@ -53,15 +65,4 @@ vb.net               17
 vb6                   1
 total languages:    223
 unique languages:     3
-```
-
-### Parameters
-```
-  -f, --folder:	Required. Root local folder to search for projects, e.g. c:\repos
-
-  -t, --includetotals: (Default is false) Include totals in results
-
-  -o, --output: output file to create csv file; e.g. c:\results\results.csv
-
-  -g, --githubOrg: GitHub org to scan; e.g. samsmithnz 
 ```
