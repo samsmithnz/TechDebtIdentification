@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using TechDebtID.Core.Statistics;
 
 namespace TechDebtID.Core
 {
     public class RepoScanner
     {
-        public async Task<ScanSummary> ScanRepo(IProgress<ProgressMessage> progress, CancellationToken cancellationToken,
+        public ScanSummary ScanRepo(IProgress<ProgressMessage> progress, CancellationToken cancellationToken,
             string rootFolder, bool includeTotal = true, string outputFile = null)
         {
             int projectCount = 0;
-            await Task.Delay(1000, cancellationToken);
 
             //scan all projects
             List<Project> projects = new List<Project>();
@@ -200,8 +195,6 @@ namespace TechDebtID.Core
                         break;
                 }
             }
-
-            //OutputProjectDetails(projects);
 
             return projects;
         }
