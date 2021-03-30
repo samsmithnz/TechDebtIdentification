@@ -279,23 +279,23 @@ namespace TechDebtID.Core
                 else if (line.IndexOf("<ProductVersion>") > 0)
                 {
                     //Since product version could appear first in the list, and we could still find a target version, don't break out of the loop
-                    project.Framework = GetHistoricallyOldFrameworkVersion(line);
+                    project.Framework = GetHistoricalFrameworkVersion(line);
                 }
                 else if (line.IndexOf("ProductVersion = ") > 0)
                 {
                     //Since product version could appear first in the list, and we could still find a target version, don't break out of the loop
-                    project.Framework = GetHistoricallyOldFrameworkVersion(line);
+                    project.Framework = GetHistoricalFrameworkVersion(line);
                 }
             }
-            if (project.Framework == null)
-            {
-                Console.Write("unknown framework");
-            }
+            //if (project.Framework == null)
+            //{
+            //    Console.Write("unknown framework");
+            //}
             projects.Add(project);
             return projects;
         }
 
-        private string GetHistoricallyOldFrameworkVersion(string line)
+        private string GetHistoricalFrameworkVersion(string line)
         {
             string productVersion = line.Replace("<ProductVersion>", "").Replace("</ProductVersion>", "").Replace("ProductVersion = ", "").Replace("\"", "").Trim();
             //https://en.wikipedia.org/wiki/Microsoft_Visual_Studio#History
