@@ -21,14 +21,14 @@ namespace TechDebtID.Tests
             List<FrameworkSummary> results = repoScanner.AggregateFrameworks(projects, includeTotal);
 
             //Asset
-            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual(9, results.Count);
             Assert.AreEqual(2, results.Find(i => i.Framework == "netstandard2.0").Count);
             Assert.AreEqual(2, results.Find(i => i.FrameworkFamily == ".NET Standard").Count);
             Assert.AreEqual(1, results.Find(i => i.Framework == "netcoreapp3.1").Count);
             Assert.AreEqual(1, results.Find(i => i.FrameworkFamily == ".NET Core").Count);
             Assert.AreEqual(1, results.Find(i => i.Framework == "net45").Count);
             Assert.AreEqual(1, results.Find(i => i.FrameworkFamily == ".NET Framework").Count);
-            Assert.AreEqual(6, results[^1].Count);
+            Assert.AreEqual(9, results[^1].Count);
         }
 
         [TestMethod]
@@ -43,10 +43,10 @@ namespace TechDebtID.Tests
             List<LanguageSummary> results = repoScanner.AggregateLanguages(projects, includeTotal);
 
             //Asset
-            Assert.AreEqual(5, results.Count);
-            Assert.AreEqual(3, results.Find(i => i.Language == "csharp").Count);
+            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual(5, results.Find(i => i.Language == "csharp").Count);
             Assert.AreEqual(1, results.Find(i => i.Language == "vbdotnet").Count);
-            Assert.AreEqual(6, results[^1].Count);
+            Assert.AreEqual(9, results[^1].Count);
         }
 
         private static List<Project> GenerateSampleData()
@@ -75,19 +75,37 @@ namespace TechDebtID.Tests
                 {
                     Framework = "net45",
                     Language = "vbdotnet",
-                    Path = @"c:\Project4"
+                    Path = @"c:\Project45"
                 },
                 new Project
                 {
                     Framework = "vb6",
                     Language = "vb6",
-                    Path = @"c:\Project5"
+                    Path = @"c:\Projectvb6"
+                },
+                new Project
+                {
+                    Framework = "v2.2",
+                    Language = "csharp",
+                    Path = @"c:\Projectv2"
+                },
+                new Project
+                {
+                    Framework = "v3.5",
+                    Language = "csharp",
+                    Path = @"c:\Projectv35"
                 },
                 new Project
                 {
                     Framework = null,
                     Language = null,
-                    Path = @"c:\Project6"
+                    Path = @"c:\ProjectNull"
+                },
+                new Project
+                {
+                    Framework = "unknown framework",
+                    Language = "unknown language",
+                    Path = @"c:\ProjectUnknown"
                 }
             };
             return projects;
