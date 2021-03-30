@@ -6,7 +6,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using TechDebtID.Core;
-using TechDebtID.Core.Statistics;
 
 namespace TechDebtID.Tests
 {

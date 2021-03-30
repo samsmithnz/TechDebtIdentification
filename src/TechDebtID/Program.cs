@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using TechDebtID.Core;
 using TechDebtID.Core.Statistics;
 
@@ -21,16 +20,17 @@ namespace TechID
         private static string _GitHubOrganization;
         private static ProgressBar progressBar;
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             //process arguments
             var result = CommandLine.Parser.Default.ParseArguments<Options>(args)
                    .WithParsed(RunOptions)
                    .WithNotParsed(HandleParseError);
 
-            //Run the task
+            //If there is a folder to scan, run the process against it
             if (string.IsNullOrEmpty(_folder) == false)
             {
+                //Initialization/ start the timer!
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
                 RepoScanner repo = new RepoScanner();
@@ -46,10 +46,10 @@ namespace TechID
                 };
                 progressBar = new ProgressBar(totalProgressBarTicks, "Searching for project files...", options);
 
-                //do the work
+                //start processing the work
                 try
                 {
-                    scanSummary = await repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
+                    scanSummary = repo.ScanRepo(progress, tokenSource.Token, _folder, _includeTotals, _outputFile);
                 }
                 catch (OperationCanceledException ex)
                 {
@@ -60,9 +60,8 @@ namespace TechID
                     Console.WriteLine(ex.Message, "Error");
                 }
 
-                //results
+                //Show the results
                 ReportProgress(new ProgressMessage());
-                Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 Console.WriteLine("Processed in " + timer.Elapsed.ToString());
                 Console.WriteLine("GitHub repo scanned: " + _GitHubOrganization);
                 if (scanSummary != null)
@@ -71,18 +70,18 @@ namespace TechID
                     Console.WriteLine("Project files found: " + scanSummary.ProjectCount);
 
                     Console.WriteLine("======================================");
+                    Console.WriteLine("Unique frameworks: " + (scanSummary.FrameworkSummary.Count - 1).ToString());
                     ConsoleTable
                         .From<FrameworkSummary>(scanSummary.FrameworkSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
-                    Console.WriteLine("Unique frameworks: " + (scanSummary.FrameworkSummary.Count - 1).ToString());
 
                     Console.WriteLine("======================================");
+                    Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                     ConsoleTable
                         .From<LanguageSummary>(scanSummary.LanguageSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
-                    Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                 }
 
             }
