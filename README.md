@@ -1,13 +1,13 @@
 # TechDebtID
 The exploratory project aims to understand if we can identify, classify and rank technical debt in repos in a way that would be useful
 
-what if... we can help to tackle technical debt?
+what if... we can help to tackle technical debt? The first stage is to identify the technical debt.
 
 ![Current build](https://github.com/samsmithnz/TechDebtIdentification/workflows/Technical%20Debt%20ID%20CI/CD/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/TechDebtIdentification/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/TechDebtIdentification?branch=main)
 
 
-**The first stage is identification**
+
 
 ## Usage
 ```
@@ -35,6 +35,7 @@ Framework         FrameworkFamily  Count
 net45             .NET Framework       1
 net5.0            .NET                30
 net5.0-windows    .NET                 3
+net6.0            .NET                 1
 netcoreapp2.0     .NET Core            1
 netcoreapp2.1     .NET Core           25
 netcoreapp2.2     .NET Core            3
