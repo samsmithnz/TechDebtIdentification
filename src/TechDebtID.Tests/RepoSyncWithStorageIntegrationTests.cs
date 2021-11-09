@@ -12,21 +12,21 @@ namespace TechDebtID.Tests
     [TestClass]
     public class RepoSyncWithStorageIntegrationTests
     {
-        [TestMethod]
-        public async Task GetGitHubRepoIntegrationTest()
-        {
-            //Arrange
-            GitHub gh = new GitHub();
-            string organization = "samsmithnz";
+        //[TestMethod]
+        //public async Task GetGitHubRepoIntegrationTest()
+        //{
+        //    //Arrange
+        //    GitHub gh = new GitHub();
+        //    string organization = "samsmithnz";
 
-            //Act
-            List<string> results = await gh.GetGitHubRepos(organization);
+        //    //Act
+        //    List<string> results = await gh.GetGitHubRepos(organization);
 
-            //Asset
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-            Assert.IsTrue(results[0] == "samsmithnz/AppSettingsYamlTest");
-        }
+        //    //Asset
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count > 0);
+        //    Assert.IsTrue(results[0] == "samsmithnz/AppSettingsYamlTest");
+        //}
 
 
         [TestMethod]
@@ -61,8 +61,8 @@ namespace TechDebtID.Tests
             RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
             string repo = "samsmithnz/SamsFeatureFlags";
             string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
-                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation";
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net6.0", "") + "\\GitHubTempLocation";
 
             //Act
             repoSync.CloneRepoToAzureStorage(repo, destination);
@@ -72,31 +72,31 @@ namespace TechDebtID.Tests
             Assert.IsTrue(dir.GetFiles().Length > 0);
         }
 
-        [TestMethod]
-        public async Task UploadFilesToStorageIntegrationTest()
-        {
-            //Arrange
-            IConfigurationBuilder config = new ConfigurationBuilder()
-               .SetBasePath(AppContext.BaseDirectory)
-               .AddJsonFile("appsettings.json")
-               .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
-            IConfigurationRoot Configuration = config.Build();
-            string azureStorageConnectionString = Configuration["AzureStorageConnectionString"];
-            RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
-            string repo = "samsmithnz/SamsFeatureFlags";
-            string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
-                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation\\";
-            //int index = destination.IndexOf("GitHubTempLocation") + "GitHubTempLocation".Length;
-            //string rootFolder = destination.Substring(index); 
+        //[TestMethod]
+        //public async Task UploadFilesToStorageIntegrationTest()
+        //{
+        //    //Arrange
+        //    IConfigurationBuilder config = new ConfigurationBuilder()
+        //       .SetBasePath(AppContext.BaseDirectory)
+        //       .AddJsonFile("appsettings.json")
+        //       .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
+        //    IConfigurationRoot Configuration = config.Build();
+        //    string azureStorageConnectionString = Configuration["AzureStorageConnectionString"];
+        //    RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
+        //    string repo = "samsmithnz/SamsFeatureFlags";
+        //    string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+        //        .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
+        //        .Replace("\\TechDebtID.Tests\\bin\\Release\\net6.0", "") + "\\GitHubTempLocation\\";
+        //    //int index = destination.IndexOf("GitHubTempLocation") + "GitHubTempLocation".Length;
+        //    //string rootFolder = destination.Substring(index); 
 
-            //Act
-            await repoSync.UploadFilesToStorageBlobs(azureStorageConnectionString, repo, destination);
+        //    //Act
+        //    await repoSync.UploadFilesToStorageBlobs(azureStorageConnectionString, repo, destination);
 
-            //Asset
-            DirectoryInfo dir = new DirectoryInfo(destination);
-            Assert.IsTrue(dir.GetFiles().Length > 0);
-        }
+        //    //Asset
+        //    DirectoryInfo dir = new DirectoryInfo(destination);
+        //    Assert.IsTrue(dir.GetFiles().Length > 0);
+        //}
 
 
     }
