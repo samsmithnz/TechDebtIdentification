@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      dotNetVersion: net5
+      dotNetVersion: net6
       dotNetConfiguration: Release
 
     steps:
@@ -35,10 +35,10 @@ jobs:
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
            
     #Build and test service   
-    - name: Setup .NET 5
+    - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100  
+        dotnet-version: 6.0.x  
     - name: Variable Substitution appsettings file for tests
       uses: microsoft/variable-substitution@v1
       with:
