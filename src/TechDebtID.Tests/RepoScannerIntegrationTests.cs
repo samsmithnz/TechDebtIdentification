@@ -36,7 +36,7 @@ namespace TechDebtID.Tests
 
             //Framework tests
             Assert.AreEqual(8, results.FrameworkSummary.Count);
-            Assert.AreEqual("net45", results.FrameworkSummary[0].Framework);
+            Assert.AreEqual("net462", results.FrameworkSummary[0].Framework);
             Assert.AreEqual(1, results.FrameworkSummary[0].Count);
             Assert.AreEqual("net5.0", results.FrameworkSummary[1].Framework);
             Assert.AreEqual(1, results.FrameworkSummary[1].Count);
