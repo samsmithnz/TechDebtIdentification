@@ -22,8 +22,8 @@ namespace TechDebtID.Tests
             bool includeTotal = true;
             //Sometimes we have a Debug build, sometimes Release, handle both to find the samples folder
             string rootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
-                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\Samples";
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net6.0", "") + "\\Samples";
 
             //Act
             ScanSummary results = repoScanner.ScanRepo(progress, tokenSource.Token, rootFolder, includeTotal, "results.csv");

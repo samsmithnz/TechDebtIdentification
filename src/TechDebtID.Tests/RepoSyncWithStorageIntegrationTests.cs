@@ -61,8 +61,8 @@ namespace TechDebtID.Tests
             RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
             string repo = "samsmithnz/SamsFeatureFlags";
             string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
-                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation";
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net6.0", "") + "\\GitHubTempLocation";
 
             //Act
             repoSync.CloneRepoToAzureStorage(repo, destination);
@@ -85,8 +85,8 @@ namespace TechDebtID.Tests
             RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
             string repo = "samsmithnz/SamsFeatureFlags";
             string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net5.0", "")
-                .Replace("\\TechDebtID.Tests\\bin\\Release\\net5.0", "") + "\\GitHubTempLocation\\";
+                .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
+                .Replace("\\TechDebtID.Tests\\bin\\Release\\net6.0", "") + "\\GitHubTempLocation\\";
             //int index = destination.IndexOf("GitHubTempLocation") + "GitHubTempLocation".Length;
             //string rootFolder = destination.Substring(index); 
 
