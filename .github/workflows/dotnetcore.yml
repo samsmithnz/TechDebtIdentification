@@ -51,13 +51,8 @@ jobs:
         path-to-lcov: src/TechDebtID.Tests/TestResults/coverage.info 
 
     #Publish console app
-    - name: publish console app
-      run: dotnet publish src/TechDebtID.App/TechDebtID.App.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
-    - name: Upload build artifacts back to GitHub
-      uses: actions/upload-artifact@master
-      with:
-        name: app
-        path: src/TechDebtID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
+    - name: build console app
+      run: dotnet build src/TechDebtID.App/TechDebtID.App.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     #Pack NuGet package
     - name: pack NuGet package
       run: dotnet pack src/TechDebtID/TechDebtID.csproj -c ${{ env.dotNetConfiguration }} --nologo --include-symbols -p:Version='${{ steps.gitversion.outputs.SemVer }}'
@@ -81,11 +76,6 @@ jobs:
       with:
         name: nugetPackage 
         path: nugetPackage
-    - name: Download nuget package artifact
-      uses: actions/download-artifact@v2.1.0
-      with:
-        name: app 
-        path: app
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
