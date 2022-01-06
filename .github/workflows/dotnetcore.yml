@@ -58,7 +58,6 @@ jobs:
       with:
         name: app
         path: src/TechDebtID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
-
     #Pack NuGet package
     - name: pack NuGet package
       run: dotnet pack src/TechDebtID/TechDebtID.csproj -c ${{ env.dotNetConfiguration }} --nologo --include-symbols -p:Version='${{ steps.gitversion.outputs.SemVer }}'
