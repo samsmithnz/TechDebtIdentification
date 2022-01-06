@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "TechID": {
-      "commandName": "Project",
-      "commandLineArgs": "-f \"C:\\Users\\samsmit\\source\" -i true -o \"C:\\Users\\samsmit\\OneDrive - Microsoft\\Desktop\\techdebt.csv\" -g samsmithnz"
-    }
-  }
-}

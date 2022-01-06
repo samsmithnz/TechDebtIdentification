@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechDebtID.Core\TechDebtID.Core.csproj" />
+    <ProjectReference Include="..\TechDebtID\TechDebtID.csproj" />
   </ItemGroup>
 
 </Project>
