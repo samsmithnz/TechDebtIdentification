@@ -53,12 +53,20 @@ jobs:
     #Publish console app
     - name: publish console app
       run: dotnet publish src/TechDebtID.App/TechDebtID.App.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
-    #Publish build artifacts to GitHub
     - name: Upload build artifacts back to GitHub
       uses: actions/upload-artifact@master
       with:
         name: app
-        path: src/TechDebtID/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
+        path: src/TechDebtID.App/bin/${{ env.dotNetConfiguration }}/${{ env.dotNetVersion }}/
+
+    #Pack NuGet package
+    - name: pack NuGet package
+      run: dotnet pack src/TechDebtID/TechDebtID.csproj -c ${{ env.dotNetConfiguration }} --nologo --include-symbols -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+    - name: Upload nuget package back to GitHub
+      uses: actions/upload-artifact@v2
+      with:
+        name: nugetPackage
+        path: src/TechDebtID/bin/${{ env.dotNetConfiguration }}   
 
   NuGetPush:
     runs-on: ubuntu-latest
