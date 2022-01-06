@@ -27,15 +27,15 @@ namespace TechID
             if (string.IsNullOrEmpty(_folder) == false)
             {
                 //Initialization/ start the timer!
-                Stopwatch timer = new Stopwatch();
+                Stopwatch timer = new();
                 timer.Start();
-                RepoScanner repo = new RepoScanner();
+                RepoScanner repo = new();
                 IProgress<ProgressMessage> progress = new Progress<ProgressMessage>(ReportProgress);
-                CancellationTokenSource tokenSource = new CancellationTokenSource();
+                CancellationTokenSource tokenSource = new();
                 ScanSummary scanSummary = null;
                 //setup the progress bar
                 int totalProgressBarTicks = new DirectoryInfo(_folder).GetDirectories().Length;
-                ProgressBarOptions options = new ProgressBarOptions
+                ProgressBarOptions options = new()
                 {
                     ProgressCharacter = '─',
                     ProgressBarOnBottom = true

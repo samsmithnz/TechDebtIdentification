@@ -13,7 +13,7 @@ namespace TechDebtID.Tests
         public void AggregateFrameworksTest()
         {
             //Arrange
-            RepoScanner repoScanner = new RepoScanner();
+            RepoScanner repoScanner = new();
             List<Project> projects = GenerateSampleData();
             bool includeTotal = true;
 
@@ -35,7 +35,7 @@ namespace TechDebtID.Tests
         public void AggregateLanguagesTest()
         {
             //Arrange
-            RepoScanner repoScanner = new RepoScanner();
+            RepoScanner repoScanner = new();
             List<Project> projects = GenerateSampleData();
             bool includeTotal = true;
 
@@ -51,7 +51,7 @@ namespace TechDebtID.Tests
 
         private static List<Project> GenerateSampleData()
         {
-            List<Project> projects = new List<Project>
+            List<Project> projects = new()
             {
                 new Project
                 {
