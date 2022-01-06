@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using TechDebtID.Core.Statistics;
+using TechDebtID.Core.Models;
 
 namespace TechDebtID.Core
 {

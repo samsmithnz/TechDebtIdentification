@@ -1,6 +1,4 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -33,7 +31,7 @@ namespace TechDebtID.Tests
         public async Task GetGitHubRepoFilesIntegrationTest()
         {
             //Arrange
-            GitHub gh = new GitHub();
+            GitHub gh = new();
             string organization = "samsmithnz";
             string repo = "AppSettingsYamlTest";
             string defaultBranch = "master";
@@ -58,7 +56,7 @@ namespace TechDebtID.Tests
             //   .AddUserSecrets<RepoSyncWithStorageIntegrationTests>();
             //IConfigurationRoot Configuration = config.Build();
             //string azureStorageConnectionString = Configuration["AzureStorageConnectionString"];
-            RepoSyncWithStorage repoSync = new RepoSyncWithStorage();
+            RepoSyncWithStorage repoSync = new();
             string repo = "samsmithnz/SamsFeatureFlags";
             string destination = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
                 .Replace("\\TechDebtID.Tests\\bin\\Debug\\net6.0", "")
@@ -68,7 +66,7 @@ namespace TechDebtID.Tests
             repoSync.CloneRepoToAzureStorage(repo, destination);
 
             //Asset
-            DirectoryInfo dir = new DirectoryInfo(destination);
+            DirectoryInfo dir = new(destination);
             Assert.IsTrue(dir.GetFiles().Length > 0);
         }
 

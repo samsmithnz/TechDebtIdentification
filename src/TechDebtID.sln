@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05D6BD2B-F182-481B-BA98-91953CA5633A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		..\.github\workflows\dotnetcore.yml = ..\.github\workflows\dotnetcore.yml
+		..\GitVersion.yml = ..\GitVersion.yml
 		..\README.md = ..\README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtID", "TechDebtID\TechDebtID.csproj", "{C1D13BA3-ECAE-4838-A80F-5C0258CEF2DA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtID.Core", "TechDebtID.Core\TechDebtID.Core.csproj", "{EE16073A-D513-430C-B757-0459D76861AD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDebtID.Tests", "TechDebtID.Tests\TechDebtID.Tests.csproj", "{0E17255A-352C-4266-A963-FC0B35FC3B06}"
 EndProject
@@ -33,20 +30,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.NetStandard.Class", 
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Sample.NetFrameworkVBNet.ConsoleApp", "Samples\Sample.NetFrameworkVBNet.ConsoleApp\Sample.NetFrameworkVBNet.ConsoleApp.vbproj", "{18A8C00D-0586-4759-A0EA-9CF9115F815D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDebtID.App", "TechDebtID.App\TechDebtID.App.csproj", "{1D2B776F-C48F-4022-B94C-5124928D214F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDebtID", "TechDebtID\TechDebtID.csproj", "{D149F424-5F18-4119-8175-1B1DB3396CF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C1D13BA3-ECAE-4838-A80F-5C0258CEF2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1D13BA3-ECAE-4838-A80F-5C0258CEF2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1D13BA3-ECAE-4838-A80F-5C0258CEF2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1D13BA3-ECAE-4838-A80F-5C0258CEF2DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE16073A-D513-430C-B757-0459D76861AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE16073A-D513-430C-B757-0459D76861AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE16073A-D513-430C-B757-0459D76861AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE16073A-D513-430C-B757-0459D76861AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E17255A-352C-4266-A963-FC0B35FC3B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E17255A-352C-4266-A963-FC0B35FC3B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E17255A-352C-4266-A963-FC0B35FC3B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +68,14 @@ Global
 		{18A8C00D-0586-4759-A0EA-9CF9115F815D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18A8C00D-0586-4759-A0EA-9CF9115F815D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18A8C00D-0586-4759-A0EA-9CF9115F815D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2B776F-C48F-4022-B94C-5124928D214F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2B776F-C48F-4022-B94C-5124928D214F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2B776F-C48F-4022-B94C-5124928D214F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2B776F-C48F-4022-B94C-5124928D214F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D149F424-5F18-4119-8175-1B1DB3396CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D149F424-5F18-4119-8175-1B1DB3396CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D149F424-5F18-4119-8175-1B1DB3396CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D149F424-5F18-4119-8175-1B1DB3396CF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

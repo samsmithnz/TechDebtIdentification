@@ -1,13 +1,9 @@
 ﻿using CommandLine;
 using ConsoleTables;
 using ShellProgressBar;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using TechDebtID.Core;
-using TechDebtID.Core.Statistics;
+using TechDebtID.Core.Models;
 
 
 namespace TechID
@@ -31,15 +27,15 @@ namespace TechID
             if (string.IsNullOrEmpty(_folder) == false)
             {
                 //Initialization/ start the timer!
-                Stopwatch timer = new Stopwatch();
+                Stopwatch timer = new();
                 timer.Start();
-                RepoScanner repo = new RepoScanner();
+                RepoScanner repo = new();
                 IProgress<ProgressMessage> progress = new Progress<ProgressMessage>(ReportProgress);
-                CancellationTokenSource tokenSource = new CancellationTokenSource();
+                CancellationTokenSource tokenSource = new();
                 ScanSummary scanSummary = null;
                 //setup the progress bar
                 int totalProgressBarTicks = new DirectoryInfo(_folder).GetDirectories().Length;
-                ProgressBarOptions options = new ProgressBarOptions
+                ProgressBarOptions options = new()
                 {
                     ProgressCharacter = '─',
                     ProgressBarOnBottom = true
@@ -75,7 +71,7 @@ namespace TechID
                         .From<FrameworkSummary>(scanSummary.FrameworkSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
-  
+
                     Console.WriteLine("======================================");
                     Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                     ConsoleTable

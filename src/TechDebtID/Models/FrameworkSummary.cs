@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TechDebtID.Core.Statistics
+﻿namespace TechDebtID.Core.Models
 {
     public class FrameworkSummary
     {
