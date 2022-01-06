@@ -50,9 +50,9 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/TechDebtID.Tests/TestResults/coverage.info 
 
-    #Publish dotnet objects
+    #Publish console app
     - name: publish console app
-      run: dotnet publish src/TechDebtID/TechDebtID.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+      run: dotnet publish src/TechDebtID.App/TechDebtID.App.csproj --configuration ${{ env.dotNetConfiguration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     #Publish build artifacts to GitHub
     - name: Upload build artifacts back to GitHub
       uses: actions/upload-artifact@master
