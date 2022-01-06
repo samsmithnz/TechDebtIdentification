@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using TechDebtID.Core;
-using TechDebtID.Core.Statistics;
+using TechDebtID.Core.Models;
 
 namespace TechDebtID.Tests
 {

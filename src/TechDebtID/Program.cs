@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using TechDebtID.Core;
-using TechDebtID.Core.Statistics;
+using TechDebtID.Core.Models;
 
 
 namespace TechID
@@ -75,7 +75,7 @@ namespace TechID
                         .From<FrameworkSummary>(scanSummary.FrameworkSummary)
                         .Configure(o => o.NumberAlignment = Alignment.Right)
                         .Write(Format.Minimal);
-  
+
                     Console.WriteLine("======================================");
                     Console.WriteLine("Unique languages: " + (scanSummary.LanguageSummary.Count - 1).ToString());
                     ConsoleTable

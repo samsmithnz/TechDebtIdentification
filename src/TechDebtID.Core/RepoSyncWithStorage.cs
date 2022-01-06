@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using TechDebtID.Core.Statistics;
-using Azure.Storage.Blobs;
-using Microsoft.Extensions.Configuration;
+﻿using Azure.Storage.Blobs;
 using LibGit2Sharp;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace TechDebtID.Core
 {

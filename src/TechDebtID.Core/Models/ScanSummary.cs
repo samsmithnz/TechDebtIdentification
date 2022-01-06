@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace TechDebtID.Core.Statistics
+namespace TechDebtID.Core.Models
 {
     public class ScanSummary
     {
