@@ -1,3 +1,5 @@
+Replaced by [https://github.com/samsmithnz/DotnetCensus/actions](https://github.com/samsmithnz/DotnetCensus/actions)
+
 # TechDebtID
 The exploratory project aims to understand if we can identify, classify and rank technical debt in repos in a way that would be useful
 
